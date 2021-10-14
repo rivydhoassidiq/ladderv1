@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "694977070383",
+    "project_id": "ladder-team",
+    "storage_bucket": "ladder-team.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694977070383:android:e8a399f561a3c3c72b0dda",
+        "android_client_info": {
+          "package_name": "com.ladder.ladder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694977070383-b8a7vnhhdvu3jsfnl2u135rbtr0bo25o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ladder.ladder",
+            "certificate_hash": "153838c1a88ded65d568910a2648df5fa2a10084"
+          }
+        },
+        {
+          "client_id": "694977070383-79thspk0b3asf9t2r3un0g6hlu5pce1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6QjYWhsxD0XSpia8cfN-aHcNaXW9XlYE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694977070383-79thspk0b3asf9t2r3un0g6hlu5pce1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
