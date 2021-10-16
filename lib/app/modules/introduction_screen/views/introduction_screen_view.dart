@@ -52,19 +52,22 @@ class _IntroductionScreenState extends State<IntroductionScreenView> {
     final mediaQueryHeight = MediaQuery.of(context).size.height;
     final mediaQueryWidth = MediaQuery.of(context).size.width;
 
+    final heightC = mediaQueryHeight;
+    final widthC = mediaQueryWidth;
+
     return Scaffold(
       backgroundColor: whiteColor,
-      body: PageView.builder(
-        controller: _authController.controller,
-        itemCount: contents.length,
-        onPageChanged: (int index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        itemBuilder: (_, i) {
-          return SafeArea(
-            child: Column(
+      body: SafeArea(
+        child: PageView.builder(
+          controller: _authController.controller,
+          itemCount: contents.length,
+          onPageChanged: (int index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          itemBuilder: (_, i) {
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
@@ -76,8 +79,10 @@ class _IntroductionScreenState extends State<IntroductionScreenView> {
                       Image.asset(
                         contents[i].image,
                         alignment: Alignment.center,
-                        width: 312,
-                        height: 320,
+                        // width: 312,
+                        // height: 320,
+                        height: heightC - mediaQueryHeight / 1.5,
+                        width: widthC - mediaQueryWidth / 5,
                       ),
                       const SizedBox(height: 20),
                       Row(
@@ -158,19 +163,22 @@ class _IntroductionScreenState extends State<IntroductionScreenView> {
                   ),
                 ),
               ],
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 
   Container buildDot(int index, BuildContext context) {
     return Container(
-      height: 8,
+      height: 10,
       width: currentIndex == index ? 10 : 10,
       margin: EdgeInsets.only(right: 8),
       decoration: BoxDecoration(
+        border: Border.all(
+          color: currentIndex != index ? sliderColor : blueColorColor,
+        ),
         borderRadius: BorderRadius.circular(10),
         color: currentIndex == index ? blueColorColor : sliderColor2,
       ),

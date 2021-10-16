@@ -6,8 +6,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ladder/app/utils/theme.dart';
 import 'package:lottie/lottie.dart';
 
-import 'components/button_fb.dart';
-import 'components/button_google.dart';
+import 'components/button_login_fb.dart';
+import 'components/button_login_google.dart';
+import 'components/button_signin_fb.dart';
+import 'components/button_signin_google.dart';
 
 class LoginView extends StatefulWidget {
   @override
@@ -43,8 +45,8 @@ class _LoginViewState extends State<LoginView>
     // digunakan untuk determine keyboard terbuka atau tidak
     double viewInset = MediaQuery.of(context).viewInsets.bottom;
 
-    double defaultLoginSize = size.height - (size.height * 0.2);
-    double defaultRegisterSize = size.height - (size.height * 0.1);
+    double defaultLoginSize = size.height - (size.height / 8);
+    double defaultRegisterSize = size.height - (size.height / 7);
 
     containerSize =
         Tween<double>(begin: size.height * 0.1, end: defaultRegisterSize)
@@ -53,92 +55,38 @@ class _LoginViewState extends State<LoginView>
     );
 
     return Scaffold(
-      body: Stack(
-        children: [
-          //Cancel Button
-          AnimatedOpacity(
-            opacity: isLogin ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 270),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                width: size.width,
-                height: size.height * 0.1,
-                alignment: Alignment.bottomCenter,
-                child: IconButton(
-                  onPressed: isLogin
-                      ? null
-                      : () {
-                          animationController.reverse();
-                          setState(() {
-                            isLogin = !isLogin;
-                          });
-                        },
-                  icon: Icon(Icons.close),
-                ),
-              ),
-            ),
-          ),
-
-          //Login Form
-          AnimatedOpacity(
-            opacity: isLogin ? 1.0 : 0.0,
-            duration: Duration(milliseconds: 270 * 4),
-            child: Align(
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
+      body: SafeArea(
+        child: Stack(
+          children: [
+            //Cancel Button
+            AnimatedOpacity(
+              opacity: isLogin ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 270),
+              child: Align(
+                alignment: Alignment.topCenter,
                 child: Container(
                   width: size.width,
-                  height: defaultLoginSize,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Welcome Back',
-                        style: boldText24,
-                      ),
-                      SizedBox(height: 40),
-                      Container(
-                        width: Get.width * 0.7,
-                        height: Get.width * 0.7,
-                        child: Lottie.asset('assets/lottie/login.json'),
-                      ),
-                      RoundedButtonFB(
-                          image: 'assets/icons/facebook.png',
-                          title: 'Login dengan Facebook'),
-                      SizedBox(height: 20),
-                      RoundedButtonGG(
-                          image: 'assets/icons/google.png',
-                          title: 'Login dengan Google'),
-                    ],
+                  height: size.height * 0.1,
+                  alignment: Alignment.bottomCenter,
+                  child: IconButton(
+                    onPressed: isLogin
+                        ? null
+                        : () {
+                            animationController.reverse();
+                            setState(() {
+                              isLogin = !isLogin;
+                            });
+                          },
+                    icon: Icon(Icons.close),
                   ),
                 ),
               ),
             ),
-          ),
 
-          //Register Container
-          AnimatedBuilder(
-            animation: animationController,
-            builder: (context, child) {
-              if (viewInset == 0 && isLogin) {
-                return buildRegisterContainer();
-              } else if (!isLogin) {
-                return buildRegisterContainer();
-              }
-
-              // mengembalikan container kosong saat disembunyikan dari widget
-              return Container();
-            },
-          ),
-
-          //Register Form
-          AnimatedOpacity(
-            opacity: isLogin ? 0.0 : 1.0,
-            duration: Duration(milliseconds: 270 * 5),
-            child: Visibility(
-              visible: !isLogin,
+            //Login Form
+            AnimatedOpacity(
+              opacity: isLogin ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 270 * 4),
               child: Align(
                 alignment: Alignment.center,
                 child: SingleChildScrollView(
@@ -150,30 +98,86 @@ class _LoginViewState extends State<LoginView>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Welcome',
+                          'Welcome Back',
                           style: boldText24,
                         ),
                         SizedBox(height: 40),
                         Container(
-                          width: Get.width * 0.8,
-                          height: Get.width * 0.8,
-                          child: Lottie.asset('assets/lottie/register.json'),
+                          width: Get.width * 0.7,
+                          height: Get.width * 0.7,
+                          child: Lottie.asset('assets/lottie/login.json'),
                         ),
-                        RoundedButtonFB(
+                        RoundedButtonLGFB(
                             image: 'assets/icons/facebook.png',
-                            title: 'Daftar dengan Facebook'),
+                            title: 'Login dengan Facebook'),
                         SizedBox(height: 20),
-                        RoundedButtonGG(
+                        RoundedButtonLGGG(
                             image: 'assets/icons/google.png',
-                            title: 'Daftar dengan Google'),
+                            title: 'Login dengan Google'),
                       ],
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+
+            //Register Container
+            AnimatedBuilder(
+              animation: animationController,
+              builder: (context, child) {
+                if (viewInset == 0 && isLogin) {
+                  return buildRegisterContainer();
+                } else if (!isLogin) {
+                  return buildRegisterContainer();
+                }
+
+                // mengembalikan container kosong saat disembunyikan dari widget
+                return Container();
+              },
+            ),
+
+            //Register Form
+            AnimatedOpacity(
+              opacity: isLogin ? 0.0 : 1.0,
+              duration: Duration(milliseconds: 270 * 5),
+              child: Visibility(
+                visible: !isLogin,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: size.width,
+                      height: defaultLoginSize,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Welcome',
+                            style: boldText24,
+                          ),
+                          SizedBox(height: 40),
+                          Container(
+                            width: Get.width * 0.8,
+                            height: Get.width * 0.8,
+                            child: Lottie.asset('assets/lottie/register.json'),
+                          ),
+                          RoundedButtonSGFB(
+                              image: 'assets/icons/facebook.png',
+                              title: 'Daftar dengan Facebook'),
+                          SizedBox(height: 20),
+                          RoundedButtonSGGG(
+                              image: 'assets/icons/google.png',
+                              title: 'Daftar dengan Google'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -203,12 +207,25 @@ class _LoginViewState extends State<LoginView>
             });
           },
           child: isLogin
-              ? Text(
-                  "Don't have an account? Sign Up",
-                  style: GoogleFonts.openSans(
-                    fontSize: 18,
-                    color: fbColor,
-                  ),
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Belum punya akun? ",
+                      style: GoogleFonts.openSans(
+                        fontSize: 18,
+                        color: fbColor,
+                      ),
+                    ),
+                    Text(
+                      "Daftar",
+                      style: GoogleFonts.openSans(
+                        fontSize: 18,
+                        color: fbColor,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
                 )
               : null,
         ),

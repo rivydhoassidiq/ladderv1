@@ -12,6 +12,7 @@ abstract class Routes {
   static const CHAT = _Paths.CHAT;
   static const PROFILE = _Paths.PROFILE;
   static const BOTTOM_NAV_BAR = _Paths.BOTTOM_NAV_BAR;
+  static const CHANGE_PROFILE = _Paths.CHANGE_PROFILE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const CHAT = '/chat';
   static const PROFILE = '/profile';
   static const BOTTOM_NAV_BAR = '/bottom-nav-bar';
+  static const CHANGE_PROFILE = '/change-profile';
 }

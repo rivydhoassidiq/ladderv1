@@ -14,6 +14,8 @@ Color boldColor = const Color(0xFF101010);
 Color sliderColor2 = const Color(0xFFF5F5F5);
 Color fbColor = const Color(0xFF7995CD);
 Color googleColor = const Color(0xFFFF775C);
+Color blackColor = const Color(0xFF000000);
+Color redColor = const Color(0xFFFF4B26);
 
 // BOLD TEXT
 TextStyle boldText24 = GoogleFonts.openSans(fontSize: 24, fontWeight: bold);
@@ -22,6 +24,8 @@ TextStyle boldText12 = GoogleFonts.openSans(fontSize: 12, fontWeight: bold);
 TextStyle boldText8 = GoogleFonts.openSans(fontSize: 8, fontWeight: bold);
 
 // SEMIBOLD TEXT
+TextStyle semiBoldText16 =
+    GoogleFonts.openSans(fontSize: 16, fontWeight: semiBold);
 TextStyle semiBoldText14 =
     GoogleFonts.openSans(fontSize: 14, fontWeight: semiBold);
 TextStyle semiBoldText12 =

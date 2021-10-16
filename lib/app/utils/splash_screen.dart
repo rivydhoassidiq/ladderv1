@@ -9,11 +9,13 @@ class SplashScreen extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: blueBackgroundColor,
-        body: Center(
-          child: Container(
-            width: Get.width * 0.3,
-            height: Get.width * 0.3,
-            child: Image.asset('assets/images/splash.png'),
+        body: SafeArea(
+          child: Center(
+            child: Container(
+              width: Get.width * 0.3,
+              height: Get.width * 0.3,
+              child: Image.asset('assets/images/splash.png'),
+            ),
           ),
         ),
       ),

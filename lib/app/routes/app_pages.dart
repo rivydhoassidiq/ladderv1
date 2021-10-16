@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:ladder/app/modules/bottom_nav_bar/bindings/bottom_nav_bar_binding.dart';
 import 'package:ladder/app/modules/bottom_nav_bar/views/bottom_nav_bar_view.dart';
+import 'package:ladder/app/modules/change_profile/bindings/change_profile_binding.dart';
+import 'package:ladder/app/modules/change_profile/views/change_profile_view.dart';
 import 'package:ladder/app/modules/chat/bindings/chat_binding.dart';
 import 'package:ladder/app/modules/chat/views/chat_view.dart';
 import 'package:ladder/app/modules/home/bindings/home_binding.dart';
@@ -14,8 +16,6 @@ import 'package:ladder/app/modules/order/bindings/order_binding.dart';
 import 'package:ladder/app/modules/order/views/order_view.dart';
 import 'package:ladder/app/modules/profile/bindings/profile_binding.dart';
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
-import 'package:ladder/app/modules/sign_up/bindings/sign_up_binding.dart';
-import 'package:ladder/app/modules/sign_up/views/sign_up_view.dart';
 
 part 'app_routes.dart';
 
@@ -39,11 +39,6 @@ class AppPages {
       binding: LoginBinding(),
     ),
     GetPage(
-      name: _Paths.SIGN_UP,
-      page: () => SignUpView(),
-      binding: SignUpBinding(),
-    ),
-    GetPage(
       name: _Paths.ORDER,
       page: () => OrderView(),
       binding: OrderBinding(),
@@ -62,6 +57,11 @@ class AppPages {
       name: _Paths.BOTTOM_NAV_BAR,
       page: () => BottomNavBarView(),
       binding: BottomNavBarBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PROFILE,
+      page: () => ChangeProfileView(),
+      binding: ChangeProfileBinding(),
     ),
   ];
 }

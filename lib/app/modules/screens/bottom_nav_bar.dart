@@ -94,17 +94,19 @@ class _BottomNavBarrState extends State<BottomNavBarr> {
             ),
           ),
         ),
-        body: Stack(
-          children: _screens
-              .asMap()
-              .map((i, screen) => MapEntry(
-                  i,
-                  Offstage(
-                    offstage: _selectedIndex != i,
-                    child: screen,
-                  )))
-              .values
-              .toList(),
+        body: SafeArea(
+          child: Stack(
+            children: _screens
+                .asMap()
+                .map((i, screen) => MapEntry(
+                    i,
+                    Offstage(
+                      offstage: _selectedIndex != i,
+                      child: screen,
+                    )))
+                .values
+                .toList(),
+          ),
         ),
       ),
     );

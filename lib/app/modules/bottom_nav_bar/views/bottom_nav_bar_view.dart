@@ -28,11 +28,12 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
       length: 4,
       child: Scaffold(
         // appBar: AppBar(
-        //   backgroundColor: whiteColor,
+        backgroundColor: whiteColor,
         //   elevation: 0,
         // ),
         bottomNavigationBar: Material(
           child: Container(
+            color: whiteColor,
             height: 66,
             child: TabBar(
               indicatorColor: bottomBlueColor,
@@ -94,17 +95,19 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
             ),
           ),
         ),
-        body: Stack(
-          children: _screens
-              .asMap()
-              .map((i, screen) => MapEntry(
-                  i,
-                  Offstage(
-                    offstage: _selectedIndex != i,
-                    child: screen,
-                  )))
-              .values
-              .toList(),
+        body: SafeArea(
+          child: Stack(
+            children: _screens
+                .asMap()
+                .map((i, screen) => MapEntry(
+                    i,
+                    Offstage(
+                      offstage: _selectedIndex != i,
+                      child: screen,
+                    )))
+                .values
+                .toList(),
+          ),
         ),
       ),
     );

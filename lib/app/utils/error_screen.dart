@@ -6,7 +6,11 @@ class ErrorScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(child: Text('Kesalahan')),
+        body: SafeArea(
+          child: Center(
+            child: Image.asset('assets/lottie/error_internet.json'),
+          ),
+        ),
       ),
     );
   }

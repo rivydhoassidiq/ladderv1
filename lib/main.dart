@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           // return GetMaterialApp(
           //   debugShowCheckedModeBanner: false,
           //   title: "Ladder",
-          //   initialRoute: Routes.BOTTOM_NAV_BAR,
+          //   initialRoute: Routes.CHANGE_PROFILE,
           //   getPages: AppPages.routes,
           // );
           return FutureBuilder(

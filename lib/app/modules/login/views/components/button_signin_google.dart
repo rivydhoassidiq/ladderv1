@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ladder/app/utils/theme.dart';
 
-class RoundedButtonGG extends StatelessWidget {
-  const RoundedButtonGG({
+class RoundedButtonSGGG extends StatelessWidget {
+  const RoundedButtonSGGG({
     Key? key,
     required this.title,
     required this.image,
@@ -32,8 +32,8 @@ class RoundedButtonGG extends StatelessWidget {
           children: [
             Image.asset(
               image,
-              width: 40,
-              height: 30,
+              width: 32,
+              height: 22,
             ),
             const SizedBox(width: 5),
             Text(
