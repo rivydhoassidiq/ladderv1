@@ -1,8 +1,6 @@
 import 'package:get/get.dart';
 
 class BottomNavBarController extends GetxController {
-  //TODO: Implement BottomNavBarController
-
   final count = 0.obs;
   @override
   void onInit() {

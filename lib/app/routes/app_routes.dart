@@ -13,6 +13,12 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const BOTTOM_NAV_BAR = _Paths.BOTTOM_NAV_BAR;
   static const CHANGE_PROFILE = _Paths.CHANGE_PROFILE;
+  static const PHONE = _Paths.PHONE;
+  static const PHONE_FORM = _Paths.PHONE_FORM;
+  static const CHAT_ROOM = _Paths.CHAT_ROOM;
+  static const SEARCH = _Paths.SEARCH;
+  static const SERVICE_DETAIL = _Paths.SERVICE_DETAIL;
+  static const PESAN_SEKARANG = _Paths.PESAN_SEKARANG;
 }
 
 abstract class _Paths {
@@ -25,4 +31,10 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const BOTTOM_NAV_BAR = '/bottom-nav-bar';
   static const CHANGE_PROFILE = '/change-profile';
+  static const PHONE = '/phone';
+  static const PHONE_FORM = '/phone-form';
+  static const CHAT_ROOM = '/chat-room';
+  static const SEARCH = '/search';
+  static const SERVICE_DETAIL = '/service-detail';
+  static const PESAN_SEKARANG = '/pesan-sekarang';
 }

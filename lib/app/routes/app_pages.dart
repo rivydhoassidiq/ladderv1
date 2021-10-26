@@ -6,6 +6,8 @@ import 'package:ladder/app/modules/change_profile/bindings/change_profile_bindin
 import 'package:ladder/app/modules/change_profile/views/change_profile_view.dart';
 import 'package:ladder/app/modules/chat/bindings/chat_binding.dart';
 import 'package:ladder/app/modules/chat/views/chat_view.dart';
+import 'package:ladder/app/modules/chat_room/bindings/chat_room_binding.dart';
+import 'package:ladder/app/modules/chat_room/views/chat_room_view.dart';
 import 'package:ladder/app/modules/home/bindings/home_binding.dart';
 import 'package:ladder/app/modules/home/views/home_view.dart';
 import 'package:ladder/app/modules/introduction_screen/bindings/introduction_screen_binding.dart';
@@ -14,8 +16,14 @@ import 'package:ladder/app/modules/login/bindings/login_binding.dart';
 import 'package:ladder/app/modules/login/views/login_view.dart';
 import 'package:ladder/app/modules/order/bindings/order_binding.dart';
 import 'package:ladder/app/modules/order/views/order_view.dart';
+import 'package:ladder/app/modules/pesan_sekarang/bindings/pesan_sekarang_binding.dart';
+import 'package:ladder/app/modules/pesan_sekarang/views/pesan_sekarang_view.dart';
 import 'package:ladder/app/modules/profile/bindings/profile_binding.dart';
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
+import 'package:ladder/app/modules/search/bindings/search_binding.dart';
+import 'package:ladder/app/modules/search/views/search_view.dart';
+import 'package:ladder/app/modules/service_detail/bindings/service_detail_binding.dart';
+import 'package:ladder/app/modules/service_detail/views/service_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -62,6 +70,26 @@ class AppPages {
       name: _Paths.CHANGE_PROFILE,
       page: () => ChangeProfileView(),
       binding: ChangeProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHAT_ROOM,
+      page: () => ChatRoomView(),
+      binding: ChatRoomBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH,
+      page: () => SearchView(),
+      binding: SearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICE_DETAIL,
+      page: () => ServiceDetailView(),
+      binding: ServiceDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.PESAN_SEKARANG,
+      page: () => PesanSekarangView(),
+      binding: PesanSekarangBinding(),
     ),
   ];
 }

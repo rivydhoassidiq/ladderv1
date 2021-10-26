@@ -6,9 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ladder/app/utils/theme.dart';
 import 'package:lottie/lottie.dart';
 
-import 'components/button_login_fb.dart';
+// import 'components/button_login_fb.dart';
 import 'components/button_login_google.dart';
-import 'components/button_signin_fb.dart';
 import 'components/button_signin_google.dart';
 
 class LoginView extends StatefulWidget {
@@ -107,10 +106,10 @@ class _LoginViewState extends State<LoginView>
                           height: Get.width * 0.7,
                           child: Lottie.asset('assets/lottie/login.json'),
                         ),
-                        RoundedButtonLGFB(
-                            image: 'assets/icons/facebook.png',
-                            title: 'Login dengan Facebook'),
-                        SizedBox(height: 20),
+                        // RoundedButtonLGFB(
+                        //     image: 'assets/icons/facebook.png',
+                        //     title: 'Login dengan Facebook'),
+                        // SizedBox(height: 20),
                         RoundedButtonLGGG(
                             image: 'assets/icons/google.png',
                             title: 'Login dengan Google'),
@@ -162,10 +161,10 @@ class _LoginViewState extends State<LoginView>
                             height: Get.width * 0.8,
                             child: Lottie.asset('assets/lottie/register.json'),
                           ),
-                          RoundedButtonSGFB(
-                              image: 'assets/icons/facebook.png',
-                              title: 'Daftar dengan Facebook'),
-                          SizedBox(height: 20),
+                          // RoundedButtonSGFB(
+                          //     image: 'assets/icons/facebook.png',
+                          //     title: 'Daftar dengan Facebook'),
+                          // SizedBox(height: 20),
                           RoundedButtonSGGG(
                               image: 'assets/icons/google.png',
                               title: 'Daftar dengan Google'),

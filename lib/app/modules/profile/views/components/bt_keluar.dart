@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 class ButtonKeluar extends StatelessWidget {
-  const ButtonKeluar({
+  final authC = Get.find<AuthController>();
+
+  ButtonKeluar({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => authC.logOut(),
       child: Card(
         child: ListTile(
           leading: Image.asset(

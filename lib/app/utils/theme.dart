@@ -16,10 +16,12 @@ Color fbColor = const Color(0xFF7995CD);
 Color googleColor = const Color(0xFFFF775C);
 Color blackColor = const Color(0xFF000000);
 Color redColor = const Color(0xFFFF4B26);
+Color greyColor = const Color(0xFFE5E5E5);
 
 // BOLD TEXT
 TextStyle boldText24 = GoogleFonts.openSans(fontSize: 24, fontWeight: bold);
 TextStyle boldText16 = GoogleFonts.openSans(fontSize: 16, fontWeight: bold);
+TextStyle boldText14 = GoogleFonts.openSans(fontSize: 14, fontWeight: bold);
 TextStyle boldText12 = GoogleFonts.openSans(fontSize: 12, fontWeight: bold);
 TextStyle boldText8 = GoogleFonts.openSans(fontSize: 8, fontWeight: bold);
 
@@ -34,6 +36,8 @@ TextStyle semiBoldText10 =
     GoogleFonts.openSans(fontSize: 10, fontWeight: semiBold);
 
 // REGULAR TEXT
+TextStyle regularText14 =
+    GoogleFonts.openSans(fontSize: 14, fontWeight: regular);
 TextStyle regularText12 =
     GoogleFonts.openSans(fontSize: 12, fontWeight: regular);
 

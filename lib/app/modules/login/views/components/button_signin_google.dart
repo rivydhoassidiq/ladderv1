@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 class RoundedButtonSGGG extends StatelessWidget {
-  const RoundedButtonSGGG({
+  RoundedButtonSGGG({
     Key? key,
     required this.title,
     required this.image,
@@ -12,12 +14,14 @@ class RoundedButtonSGGG extends StatelessWidget {
   final String title;
   final String image;
 
+  final authC = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () {},
+      onTap: () => authC.login(),
       borderRadius: BorderRadius.circular(30),
       child: Container(
         width: size.width * 0.8,

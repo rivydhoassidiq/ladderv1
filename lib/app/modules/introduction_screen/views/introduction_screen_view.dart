@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ladder/app/modules/introduction_screen/controllers/introduction_screen_controller.dart';
+import 'package:ladder/app/modules/login/views/login_view.dart';
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 
@@ -124,7 +125,8 @@ class _IntroductionScreenState extends State<IntroductionScreenView> {
                         child: Material(
                           color: Colors.transparent,
                           child: InkWell(
-                            onTap: () => Get.offAllNamed(Routes.LOGIN),
+                            // onTap: () => Get.offAllNamed(Routes.LOGIN),
+                            onTap: () => Get.offAndToNamed(Routes.LOGIN),
                             child: Center(
                               child: Text('Lewati',
                                   style: boldText16.copyWith(color: pinkColor)),
@@ -145,7 +147,7 @@ class _IntroductionScreenState extends State<IntroductionScreenView> {
                           child: InkWell(
                             onTap: () {
                               if (currentIndex == contents.length - 1) {
-                                Get.offAllNamed(Routes.LOGIN);
+                                Get.offAndToNamed(Routes.LOGIN);
                               }
                               _authController.controller.nextPage(
                                   duration: Duration(milliseconds: 100),

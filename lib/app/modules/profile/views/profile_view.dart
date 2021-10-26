@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 
@@ -12,6 +13,7 @@ import 'components/bt_sk.dart';
 import 'components/bt_tentang.dart';
 
 class ProfileView extends GetView<ProfileController> {
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     final widthC = MediaQuery.of(context).size.width;
@@ -36,15 +38,22 @@ class ProfileView extends GetView<ProfileController> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      width: Get.width * 0.23,
-                      height: Get.width * 0.23,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/profilepict.png'),
-                        ),
+                    // Container(
+                    //   width: Get.width * 0.23,
+                    //   height: Get.width * 0.23,
+                    //   decoration: BoxDecoration(
+                    //     shape: BoxShape.circle,
+                    //     image: DecorationImage(
+                    //       fit: BoxFit.fill,
+                    //       image: AssetImage('assets/images/profilepict.png'),
+                    //     ),
+                    //   ),
+                    // ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(
+                        authC.user.value.photoUrl!,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     SizedBox(width: 16),
@@ -53,12 +62,16 @@ class ProfileView extends GetView<ProfileController> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Shin Jiyoon',
-                              style: boldText16.copyWith(color: blackColor)),
+                          Obx(() => Text("${authC.user.value.name!}",
+                              style: boldText16.copyWith(color: blackColor))),
                           SizedBox(width: 4),
-                          Text('+6289695704282', style: regularText12),
+                          Obx(() => authC.user.value.phoneNumber! == ""
+                              ? Text('Masukkan Nomor', style: regularText12)
+                              : Text('${authC.user.value.phoneNumber!}',
+                                  style: regularText12)),
                           SizedBox(width: 4),
-                          Text('shinjiyoon@gmail.com', style: regularText12),
+                          Text("${authC.user.value.email!}",
+                              style: regularText12),
                         ],
                       ),
                     ),

@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 import '../controllers/change_profile_controller.dart';
 
 class ChangeProfileView extends GetView<ChangeProfileController> {
-  final _controller = Get.find<ChangeProfileController>();
+  // final _controller = Get.find<ChangeProfileController>();
+  final authC = Get.find<AuthController>();
+  final GlobalKey<FormState> forKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    controller.emailC.text = authC.user.value.email!;
+    controller.namaC.text = authC.user.value.name!;
+    controller.noTelpC.text = authC.user.value.phoneNumber!;
+
     final sizeC = MediaQuery.of(context).size.height;
 
     final heightC = sizeC;
+
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(pattern);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +69,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                             children: [
                               CircleAvatar(
                                 backgroundImage:
-                                    AssetImage('assets/images/profilepict.png'),
+                                    NetworkImage(authC.user.value.photoUrl!),
                               ),
                               Positioned(
                                 bottom: -16,
@@ -82,37 +92,68 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                     SizedBox(height: 24.0),
                     Container(
                       padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Nama Lengkap',
-                            style: boldText12.copyWith(color: blackColor),
-                          ),
-                          TextField(
-                            controller: _controller.namaC,
-                            style: semiBoldText14,
-                          ),
-                          SizedBox(height: 16.0),
-                          Text(
-                            'Nomor Telepon',
-                            style: boldText12.copyWith(color: blackColor),
-                          ),
-                          TextField(
-                            controller: _controller.noTelpC,
-                            style: semiBoldText14,
-                            keyboardType: TextInputType.number,
-                          ),
-                          SizedBox(height: 16.0),
-                          Text(
-                            'Email',
-                            style: boldText12.copyWith(color: blackColor),
-                          ),
-                          TextField(
-                            controller: _controller.emailC,
-                            style: semiBoldText14,
-                          ),
-                        ],
+                      child: Form(
+                        key: forKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Nama Lengkap',
+                              style: boldText12.copyWith(color: blackColor),
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Nama tidak boleh kosong";
+                                }
+                                return null;
+                              },
+                              controller: controller.namaC,
+                              textInputAction: TextInputAction.next,
+                              style: semiBoldText14,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Nomor Telepon',
+                              style: boldText12.copyWith(color: blackColor),
+                            ),
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.length == 0) {
+                                  return "Nomor tidak boleh kosong";
+                                }
+                                if (!regExp.hasMatch(value)) {
+                                  return "Masukkan nomor valid";
+                                }
+                                return null;
+                              },
+                              controller: controller.noTelpC,
+                              textInputAction: TextInputAction.done,
+                              onEditingComplete: () {
+                                if (forKey.currentState!.validate()) {
+                                  return authC.changeProfile(
+                                      controller.namaC.text,
+                                      controller.noTelpC.text);
+                                } else {
+                                  print('Gagal');
+                                }
+                              },
+                              style: semiBoldText14,
+                              keyboardType: TextInputType.number,
+                            ),
+                            SizedBox(height: 16.0),
+                            Text(
+                              'Email',
+                              style: boldText12.copyWith(color: blackColor),
+                            ),
+                            TextField(
+                              controller: controller.emailC,
+                              readOnly: true,
+                              // textInputAction: TextInputAction.next,
+                              style: semiBoldText14,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 16.0),
@@ -132,7 +173,15 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                             child: Center(
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(4),
-                                onTap: () {},
+                                onTap: () {
+                                  if (forKey.currentState!.validate()) {
+                                    return authC.changeProfile(
+                                        controller.namaC.text,
+                                        controller.noTelpC.text);
+                                  } else {
+                                    print('Gagal');
+                                  }
+                                },
                                 child: Text(
                                   'Simpan',
                                   style: semiBoldText14.copyWith(

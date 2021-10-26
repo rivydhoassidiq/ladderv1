@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ChangeProfileController extends GetxController {
-  TextEditingController namaC = TextEditingController(text: 'Shin Jiyoon');
-  TextEditingController noTelpC = TextEditingController(text: '+6289695704282');
+  TextEditingController namaC = TextEditingController();
+  TextEditingController noTelpC = TextEditingController();
   TextEditingController emailC =
-      TextEditingController(text: 'shinjiyoon@gmail.com');
+      TextEditingController();
 
   @override
   void onInit() {
