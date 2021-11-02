@@ -32,29 +32,33 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) {
         if (_networkController.connectionStatus.value == 0) {
           return ErrorScreen();
+        } else {
+          // if (snapshot.connectionState == ConnectionState.done) {
+          if (_networkController.connectionStatus.value == 1 ||
+              _networkController.connectionStatus.value == 2) {
+            // GetMaterialApp(
+            //   debugShowCheckedModeBanner: false,
+            //   title: "Ladder",
+            //   initialRoute: Routes.SERVICE_DETAIL,
+            //   getPages: AppPages.routes,
+            // );
+            return Obx(
+              () => GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: "Ladder",
+                initialRoute: authC.isSkipIntro.isTrue
+                    ? authC.isAuth.isTrue
+                        ? Routes.BOTTOM_NAV_BAR
+                        : Routes.LOGIN
+                    : Routes.INTRODUCTION_SCREEN,
+                getPages: AppPages.routes,
+              ),
+            );
+          }
         }
-        if (snapshot.connectionState == ConnectionState.done) {
-          // GetMaterialApp(
-          //   debugShowCheckedModeBanner: false,
-          //   title: "Ladder",
-          //   initialRoute: Routes.SERVICE_DETAIL,
-          //   getPages: AppPages.routes,
-          // );
-          return Obx(
-            () => GetMaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: "Ladder",
-              initialRoute: authC.isSkipIntro.isTrue
-                  ? authC.isAuth.isTrue
-                      ? Routes.BOTTOM_NAV_BAR
-                      : Routes.LOGIN
-                  : Routes.INTRODUCTION_SCREEN,
-              getPages: AppPages.routes,
-            ),
-          );
-        }
+
         return FutureBuilder(
-          future: Future.delayed(Duration(seconds: 3)),
+          future: Future.delayed(Duration(seconds: 2)),
           builder: (context, snapshot) => SplashScreen(),
         );
       },

@@ -42,7 +42,7 @@ class ChatView extends GetView<ChatController> {
         child: Column(
           children: [
             Expanded(
-              child: myChats.length != 0
+              child: myChats.length == 0
                   ? Center(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

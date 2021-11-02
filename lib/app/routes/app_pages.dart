@@ -22,8 +22,8 @@ import 'package:ladder/app/modules/profile/bindings/profile_binding.dart';
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
 import 'package:ladder/app/modules/search/bindings/search_binding.dart';
 import 'package:ladder/app/modules/search/views/search_view.dart';
-import 'package:ladder/app/modules/service_detail/bindings/service_detail_binding.dart';
-import 'package:ladder/app/modules/service_detail/views/service_detail_view.dart';
+// import 'package:ladder/app/modules/service_detail/bindings/service_detail_binding.dart';
+// import 'package:ladder/app/modules/service_detail/views/service_detail_view.dart';
 
 part 'app_routes.dart';
 
@@ -81,11 +81,11 @@ class AppPages {
       page: () => SearchView(),
       binding: SearchBinding(),
     ),
-    GetPage(
-      name: _Paths.SERVICE_DETAIL,
-      page: () => ServiceDetailView(),
-      binding: ServiceDetailBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.SERVICE_DETAIL,
+    //   page: () => ServiceDetailView(),
+    //   binding: ServiceDetailBinding(),
+    // ),
     GetPage(
       name: _Paths.PESAN_SEKARANG,
       page: () => PesanSekarangView(),

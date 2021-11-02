@@ -1,8 +1,14 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:ladder/app/utils/cleaning_page.dart';
-import 'package:ladder/app/utils/repairing_page.dart';
+import 'package:get/get.dart';
+
+import 'package:ladder/app/modules/home/controllers/home_controller.dart';
+import 'package:ladder/app/modules/search/views/components/cleaning.dart';
+import 'package:ladder/app/modules/search/views/components/repairing_card.dart';
+import 'package:ladder/app/modules/search/views/components/search_field.dart';
+import 'package:ladder/app/modules/search/views/components/text_cleaning.dart';
+import 'package:ladder/app/modules/search/views/components/text_repairing.dart';
 
 import 'package:ladder/app/utils/theme.dart';
 
@@ -15,6 +21,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _current = 0;
+  HomeController producsController = Get.put(HomeController());
   final CarouselController _controller = CarouselController();
 
   @override
@@ -73,23 +80,19 @@ class _HomeViewState extends State<HomeView> {
                   SearchField(heightC: heightC, sizeHeight: sizeHeight),
                   const SizedBox(height: 16),
                   CarouselSlider(
-                    items: imgList,
-                    carouselController: _controller,
-                    options: CarouselOptions(
-                      autoPlayAnimationDuration: Duration(seconds: 1),
-                      height: heightC / 5,
-                      // height: 200,
-                      autoPlay: true,
-                      viewportFraction: 1,
-                      onPageChanged: (index, reason) {
-                        setState(
-                          () {
-                            _current = index;
-                          },
-                        );
-                      },
-                    ),
-                  ),
+                      items: imgList,
+                      carouselController: _controller,
+                      options: CarouselOptions(
+                          autoPlayAnimationDuration: Duration(seconds: 1),
+                          height: heightC / 5,
+                          // height: 200,
+                          autoPlay: true,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          })),
                   Dot(
                       imgList: imgList,
                       controller: _controller,
@@ -97,331 +100,32 @@ class _HomeViewState extends State<HomeView> {
                   TextRepairing(sizeWidth: sizeWidth, widthC: widthC),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                      children: [
-                        RepairingCard(
-                          image: 'assets/images/lampu2.png',
-                          title: 'Lampu',
-                        ),
-                        SizedBox(width: 12),
-                        RepairingCard(
-                          image: 'assets/images/keran2.png',
-                          title: 'Plumbing',
-                        ),
-                        SizedBox(width: 12),
-                        RepairingCard(
-                            image: 'assets/images/pompa_air2.png',
-                            title: 'Pompa Air,'),
-                      ],
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30,
                     ),
+                    child: Row(
+                        children: producsController.repairing_products
+                            .map(
+                              (product) => RepairingCard(product: product),
+                            )
+                            .toList()),
                   ),
                   TextCleaning(sizeWidth: sizeWidth, widthC: widthC),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     padding: EdgeInsets.symmetric(horizontal: 30),
                     child: Row(
-                      children: [
-                        CleaningCard(
-                          image: 'assets/images/toilet2.png',
-                          title: 'Toilet',
-                        ),
-                        SizedBox(width: 12),
-                        CleaningCard(
-                          image: 'assets/images/tandon_air2.png',
-                          title: 'Tandon Air',
-                        ),
-                        SizedBox(width: 12),
-                        CleaningCard(
-                            image: 'assets/images/cuci_ac2.png',
-                            title: 'Cuci Ac,'),
-                      ],
-                    ),
+                        children: producsController.cleaning_products
+                            .map(
+                              (product) => CleaningCard(product: product),
+                            )
+                            .toList()),
                   ),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CleaningCard extends StatelessWidget {
-  const CleaningCard({
-    Key? key,
-    required this.title,
-    required this.image,
-  }) : super(key: key);
-
-  final String title;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // height: 120,
-      width: 300,
-      decoration: BoxDecoration(
-        color: whiteColor,
-        boxShadow: [
-          BoxShadow(
-            color: sliderColor,
-            spreadRadius: 0,
-            blurRadius: 1,
-            offset: Offset(1, 2),
-          ),
-        ],
-        border: Border.all(
-          color: whiteColor,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(4),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            image,
-            width: 140,
-            height: 120,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                child: Text(
-                  title,
-                  style: semiBoldText14.copyWith(color: blackColor),
-                ),
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 17),
-                  Icon(
-                    Icons.star,
-                    color: Color(0xFFFFC107),
-                    size: 16,
-                  ),
-                  SizedBox(width: 5),
-                  Text('0', style: regularText12),
-                ],
-              ),
-              SizedBox(height: 29),
-              Padding(
-                padding: const EdgeInsets.only(left: 18.0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/icons/komen.png',
-                      width: 13,
-                      height: 13,
-                    ),
-                    SizedBox(width: 7),
-                    Text('50', style: regularText12),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class RepairingCard extends StatelessWidget {
-  const RepairingCard({
-    Key? key,
-    required this.title,
-    required this.image,
-  }) : super(key: key);
-
-  final String title;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // margin: EdgeInsets.symmetric(vertical: 50),
-      // padding: EdgeInsets.symmetric(vertical: 50),
-
-      // height: 120,
-      width: 300,
-      decoration: BoxDecoration(
-        color: whiteColor,
-        boxShadow: [
-          BoxShadow(
-            color: sliderColor,
-            spreadRadius: 0,
-            blurRadius: 1,
-            offset: Offset(1, 2),
-          ),
-        ],
-        border: Border.all(
-          color: whiteColor,
-        ),
-        borderRadius: BorderRadius.all(
-          Radius.circular(4),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Image.asset(
-            image,
-            width: 140,
-            height: 120,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-                child: Text(
-                  title,
-                  style: semiBoldText14.copyWith(color: blackColor),
-                ),
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: 17),
-                  Icon(
-                    Icons.star,
-                    color: Color(0xFFFFC107),
-                    size: 16,
-                  ),
-                  SizedBox(width: 5),
-                  Text('0', style: regularText12),
-                ],
-              ),
-              SizedBox(height: 29),
-              Padding(
-                padding: const EdgeInsets.only(left: 18.0),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/icons/komen.png',
-                      width: 13,
-                      height: 13,
-                    ),
-                    SizedBox(width: 7),
-                    Text('50', style: regularText12),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TextRepairing extends StatelessWidget {
-  const TextRepairing({
-    Key? key,
-    required this.sizeWidth,
-    required this.widthC,
-  }) : super(key: key);
-
-  final double sizeWidth;
-  final double widthC;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.amber,
-      width: sizeWidth - widthC / 9,
-      // height: sizeHeight - heightC * 5,
-      // width: double.infinity,
-      // height: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Repairing',
-            style: boldText16.copyWith(color: blackColor),
-          ),
-          Container(
-            width: 150,
-            height: 1,
-            color: sliderColor,
-          ),
-          TextButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => RepairingPage(),
-              ),
-            ),
-            child: Text(
-              'Lihat Semua',
-              style: boldText12.copyWith(color: blackColor),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TextCleaning extends StatelessWidget {
-  const TextCleaning({
-    Key? key,
-    required this.sizeWidth,
-    required this.widthC,
-  }) : super(key: key);
-
-  final double sizeWidth;
-  final double widthC;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.amber,
-      width: sizeWidth - widthC / 9,
-      // height: sizeHeight - heightC * 5,
-      // width: double.infinity,
-      // height: 200,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Cleaning',
-            style: boldText16.copyWith(color: blackColor),
-          ),
-          Container(
-            width: 155,
-            height: 1,
-            color: sliderColor,
-          ),
-          TextButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CleaningPage(),
-              ),
-            ),
-            child: Text(
-              'Lihat Semua',
-              style: boldText12.copyWith(color: blackColor),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -461,45 +165,6 @@ class Dot extends StatelessWidget {
           ),
         );
       }).toList(),
-    );
-  }
-}
-
-class SearchField extends StatelessWidget {
-  const SearchField({
-    Key? key,
-    required this.heightC,
-    required this.sizeHeight,
-  }) : super(key: key);
-
-  final double heightC;
-  final double sizeHeight;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: 30,
-        left: 16,
-        right: 16,
-      ),
-      // color: Colors.red,
-      width: double.infinity,
-      height: heightC - sizeHeight / 1.15,
-      child: TextField(
-        decoration: InputDecoration(
-          focusColor: whiteColor,
-          suffixIcon:
-              IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined)),
-          border: OutlineInputBorder(
-            // gapPadding: ,
-            borderSide: BorderSide(color: sliderColor),
-            borderRadius: BorderRadius.all(
-              Radius.circular(4),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
