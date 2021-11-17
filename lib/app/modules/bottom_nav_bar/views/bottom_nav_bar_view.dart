@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ladder/app/modules/chat/views/chat_view.dart';
 import 'package:ladder/app/modules/home/views/home_view.dart';
-import 'package:ladder/app/modules/order/views/order_view.dart';
+
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
 import 'package:ladder/app/utils/theme.dart';
 
@@ -17,7 +17,6 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
 
   final _screens = [
     HomeView(),
-    OrderView(),
     ChatView(),
     ProfileView(),
   ];
@@ -25,7 +24,7 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         // appBar: AppBar(
         backgroundColor: whiteColor,
@@ -66,19 +65,10 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
                 ),
                 Tab(
                   icon: Image.asset(
-                    'assets/icons/order.png',
-                    color: _selectedIndex == 1 ? bottomBlueColor : sliderColor,
-                    height: 24,
-                    width: 24,
-                  ),
-                  text: "Order",
-                ),
-                Tab(
-                  icon: Image.asset(
                     'assets/icons/chat.png',
                     height: 24,
                     width: 24,
-                    color: _selectedIndex == 2 ? bottomBlueColor : sliderColor,
+                    color: _selectedIndex == 1 ? bottomBlueColor : sliderColor,
                   ),
                   text: "Chat",
                 ),
@@ -87,7 +77,7 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
                     'assets/icons/profilepict.png',
                     height: 24,
                     width: 24,
-                    color: _selectedIndex == 3 ? bottomBlueColor : sliderColor,
+                    color: _selectedIndex == 2 ? bottomBlueColor : sliderColor,
                   ),
                   text: "Profile",
                 ),

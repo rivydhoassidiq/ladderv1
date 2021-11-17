@@ -8,6 +8,8 @@ import 'package:ladder/app/modules/chat/bindings/chat_binding.dart';
 import 'package:ladder/app/modules/chat/views/chat_view.dart';
 import 'package:ladder/app/modules/chat_room/bindings/chat_room_binding.dart';
 import 'package:ladder/app/modules/chat_room/views/chat_room_view.dart';
+import 'package:ladder/app/modules/detail_tukang/bindings/detail_tukang_binding.dart';
+import 'package:ladder/app/modules/detail_tukang/views/detail_tukang_view.dart';
 import 'package:ladder/app/modules/home/bindings/home_binding.dart';
 import 'package:ladder/app/modules/home/views/home_view.dart';
 import 'package:ladder/app/modules/introduction_screen/bindings/introduction_screen_binding.dart';
@@ -16,12 +18,13 @@ import 'package:ladder/app/modules/login/bindings/login_binding.dart';
 import 'package:ladder/app/modules/login/views/login_view.dart';
 import 'package:ladder/app/modules/order/bindings/order_binding.dart';
 import 'package:ladder/app/modules/order/views/order_view.dart';
-import 'package:ladder/app/modules/pesan_sekarang/bindings/pesan_sekarang_binding.dart';
-import 'package:ladder/app/modules/pesan_sekarang/views/pesan_sekarang_view.dart';
+import 'package:ladder/app/modules/pilih_tukang/bindings/pilih_tukang_binding.dart';
+import 'package:ladder/app/modules/pilih_tukang/views/pilih_tukang_view.dart';
 import 'package:ladder/app/modules/profile/bindings/profile_binding.dart';
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
 import 'package:ladder/app/modules/search/bindings/search_binding.dart';
 import 'package:ladder/app/modules/search/views/search_view.dart';
+
 // import 'package:ladder/app/modules/service_detail/bindings/service_detail_binding.dart';
 // import 'package:ladder/app/modules/service_detail/views/service_detail_view.dart';
 
@@ -87,9 +90,14 @@ class AppPages {
     //   binding: ServiceDetailBinding(),
     // ),
     GetPage(
-      name: _Paths.PESAN_SEKARANG,
-      page: () => PesanSekarangView(),
-      binding: PesanSekarangBinding(),
+      name: _Paths.PILIH_TUKANG,
+      page: () => PilihTukangView(),
+      binding: PilihTukangBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_TUKANG,
+      page: () => DetailTukangView(),
+      binding: DetailTukangBinding(),
     ),
   ];
 }

@@ -17,6 +17,9 @@ Color googleColor = const Color(0xFFFF775C);
 Color blackColor = const Color(0xFF000000);
 Color redColor = const Color(0xFFFF4B26);
 Color greyColor = const Color(0xFFE5E5E5);
+Color cardAIColor = const Color(0xFFFEFDF5);
+Color cardACColor = const Color(0xFFFFF1E0);
+Color cardPColor = const Color(0xFFBCF2E4);
 
 // BOLD TEXT
 TextStyle boldText24 = GoogleFonts.openSans(fontSize: 24, fontWeight: bold);

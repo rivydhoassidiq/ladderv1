@@ -11,6 +11,7 @@ import 'package:ladder/app/modules/search/views/components/text_cleaning.dart';
 import 'package:ladder/app/modules/search/views/components/text_repairing.dart';
 
 import 'package:ladder/app/utils/theme.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,6 +24,27 @@ class _HomeViewState extends State<HomeView> {
   int _current = 0;
   HomeController producsController = Get.put(HomeController());
   final CarouselController _controller = CarouselController();
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    loadData();
+  }
+
+  Future loadData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(Duration(seconds: 10), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,64 +90,93 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: whiteColor,
       body: SafeArea(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: [
-            Container(
-              width: sizeWidth,
-              // height: sizeHeight,
-              // color: Colors.amber,
-              child: Column(
-                children: [
-                  SearchField(heightC: heightC, sizeHeight: sizeHeight),
-                  const SizedBox(height: 16),
-                  CarouselSlider(
-                      items: imgList,
-                      carouselController: _controller,
-                      options: CarouselOptions(
-                          autoPlayAnimationDuration: Duration(seconds: 1),
-                          height: heightC / 5,
-                          // height: 200,
-                          autoPlay: true,
-                          viewportFraction: 1,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          })),
-                  Dot(
-                      imgList: imgList,
-                      controller: _controller,
-                      current: _current),
-                  TextRepairing(sizeWidth: sizeWidth, widthC: widthC),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 30,
+        child: isLoading
+            ? Center(
+                child: Container(
+                width: 100,
+                child: LoadingIndicator(
+                    indicatorType: Indicator.ballRotateChase,
+
+                    /// Required, The loading type of the widget
+                    colors: const [
+                      Colors.red,
+                      Colors.green,
+                      Colors.blue,
+                      Colors.yellow,
+                      Colors.purple
+                    ],
+
+                    /// Optional, The color collections
+                    strokeWidth: 2,
+
+                    /// Optional, The stroke of the line, only applicable to widget which contains line
+                    backgroundColor: Colors.white,
+
+                    /// Optional, Background of the widget
+                    pathBackgroundColor: Colors.white
+
+                    /// Optional, the stroke backgroundColor
                     ),
-                    child: Row(
-                        children: producsController.repairing_products
-                            .map(
-                              (product) => RepairingCard(product: product),
-                            )
-                            .toList()),
-                  ),
-                  TextCleaning(sizeWidth: sizeWidth, widthC: widthC),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: Row(
-                        children: producsController.cleaning_products
-                            .map(
-                              (product) => CleaningCard(product: product),
-                            )
-                            .toList()),
+              ))
+            : ListView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  Container(
+                    width: sizeWidth,
+                    // height: sizeHeight,
+                    // color: Colors.amber,
+                    child: Column(
+                      children: [
+                        SearchField(heightC: heightC, sizeHeight: sizeHeight),
+                        const SizedBox(height: 16),
+                        CarouselSlider(
+                            items: imgList,
+                            carouselController: _controller,
+                            options: CarouselOptions(
+                                autoPlayAnimationDuration: Duration(seconds: 1),
+                                height: heightC / 5,
+                                // height: 200,
+                                autoPlay: true,
+                                viewportFraction: 1,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _current = index;
+                                  });
+                                })),
+                        Dot(
+                            imgList: imgList,
+                            controller: _controller,
+                            current: _current),
+                        TextRepairing(sizeWidth: sizeWidth, widthC: widthC),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 30,
+                          ),
+                          child: Row(
+                              children: producsController.repairing_products
+                                  .map(
+                                    (product) =>
+                                        RepairingCard(product: product),
+                                  )
+                                  .toList()),
+                        ),
+                        TextCleaning(sizeWidth: sizeWidth, widthC: widthC),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                              children: producsController.cleaning_products
+                                  .map(
+                                    (product) => CleaningCard(product: product),
+                                  )
+                                  .toList()),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

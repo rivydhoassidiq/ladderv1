@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ladder/app/data/models/reapiring.dart';
-import 'package:ladder/app/modules/home/controllers/home_controller.dart';
+// import 'package:ladder/app/modules/home/controllers/home_controller.dart';
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 import '../controllers/service_detail_controller.dart';
 
 class ServiceDetailView extends GetView<ServiceDetailController> {
-  final HomeController producsController = Get.put(HomeController());
+  // final HomeController producsController = Get.put(HomeController());
   final RepairingModel product;
 
   ServiceDetailView(this.product);
@@ -35,6 +35,9 @@ class ServiceDetailView extends GetView<ServiceDetailController> {
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(16),
         height: 76,
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: sliderColor)),
+        ),
 
         // color: Colors.green,
         child: Container(
@@ -46,7 +49,7 @@ class ServiceDetailView extends GetView<ServiceDetailController> {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(4)),
-              onTap: () => Get.toNamed(Routes.PESAN_SEKARANG),
+              onTap: () => Get.toNamed(Routes.PILIH_TUKANG),
               child: Center(
                 child: Text(
                   'Pesan Sekarang',

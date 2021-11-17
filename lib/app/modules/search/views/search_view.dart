@@ -190,43 +190,6 @@ class SearchView extends GetView<SearchController> {
                   ),
                 ),
         ),
-        // child: Column(
-        //   children: [
-        //     Expanded(
-        //       child: mySearch.length != 0
-        //           ? Center(
-        //               child: Column(
-        //                 mainAxisAlignment: MainAxisAlignment.center,
-        //                 // crossAxisAlignment: CrossAxisAlignment.center,
-        //                 children: [
-        //                   Container(
-        //                     // color: Colors.amber,
-        //                     margin: const EdgeInsets.only(top: 50),
-        //                     // width: 230,
-        //                     // height: 230,
-        //                     child: const Image(
-        //                       image: AssetImage('assets/images/kosong.png'),
-        //                       width: 230,
-        //                       height: 230,
-        //                     ),
-        //                   ),
-        //                   const SizedBox(height: 16),
-        //                   Text(
-        //                     'Hasil Pencarian Tidak Ada',
-        //                     style: boldText16,
-        //                   ),
-        //                 ],
-        //               ),
-        //             )
-        //           : GridView.count(
-        //               crossAxisCount: 2,
-        //               mainAxisSpacing: 10,
-        //               // crossAxisSpacing: 50,
-        //               children: mySearch,
-        //             ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

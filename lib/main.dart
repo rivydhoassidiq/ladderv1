@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         }
 
         return FutureBuilder(
-          future: Future.delayed(Duration(seconds: 2)),
+          future: Future.delayed(Duration(seconds: 5)),
           builder: (context, snapshot) => SplashScreen(),
         );
       },
