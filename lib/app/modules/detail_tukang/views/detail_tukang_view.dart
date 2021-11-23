@@ -2,23 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:ladder/app/data/models/tukang.dart';
-import 'package:ladder/app/routes/app_pages.dart';
+import 'package:ladder/app/controllers/auth_controller.dart';
+
+import 'package:ladder/app/data/models/users_model.dart';
+import 'package:ladder/app/utils/loading_screen.dart';
+
 import 'package:ladder/app/utils/theme.dart';
 
 import '../controllers/detail_tukang_controller.dart';
 
 class DetailTukangView extends GetView<DetailTukangController> {
-  // final TukangModel tukang;
+  final authC = Get.find<AuthController>();
 
-  // DetailTukangView(this.tukang);
   @override
   Widget build(BuildContext context) {
     final sizeWidth = MediaQuery.of(context).size.width;
-    final sizeHeight = MediaQuery.of(context).size.height;
 
-    final widthC = sizeWidth;
-    final heightC = sizeHeight;
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -36,54 +35,68 @@ class DetailTukangView extends GetView<DetailTukangController> {
           style: boldText16.copyWith(color: blackColor),
         ),
       ),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16),
-        height: 76,
-        decoration: BoxDecoration(
-          border: Border(top: BorderSide(color: sliderColor)),
-        ),
+      bottomNavigationBar: FutureBuilder<DocumentSnapshot<UsersModel?>>(
+        future: controller.getDataaa(Get.arguments),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            var listAllDocs = snapshot.data!.data()!;
+            var email = listAllDocs.email;
+            return Container(
+              padding: EdgeInsets.all(16),
+              height: 76,
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: sliderColor)),
+              ),
 
-        // color: Colors.green,
-        child: Container(
-          decoration: BoxDecoration(
-            color: blueColorColor,
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-              onTap: () => Get.toNamed(Routes.CHAT_ROOM),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/icons/chat.png',
-                      color: whiteColor,
-                      width: 16,
-                      height: 16,
+              // color: Colors.green,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: blueColorColor,
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    onTap: () => authC.addNewConnection(email!),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/icons/chat.png',
+                            color: whiteColor,
+                            width: 16,
+                            height: 16,
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            'Chat',
+                            style: boldText16.copyWith(color: whiteColor),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      'Chat',
-                      style: boldText16.copyWith(color: whiteColor),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
+            );
+          }
+          return Center(
+            child: LoadingScreen(),
+          );
+        },
       ),
-      body: FutureBuilder<DocumentSnapshot<Object?>>(
-          future: controller.getData(Get.arguments),
+      body: FutureBuilder<DocumentSnapshot<UsersModel?>>(
+          future: controller.getDataaa(Get.arguments),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              // var listAllDocs = snapshot.data!.docs;
-              var data = snapshot.data!.data() as Map<String, dynamic>;
-              var nameC = data["name"];
-              var photoUrl = data["photoUrl"];
+              var listAllDocs = snapshot.data!.data()!;
+
+              var name = listAllDocs.name;
+              var photoUrl = listAllDocs.photoUrl;
+              var keahlian = listAllDocs.keahlian;
+
               return Container(
                 width: sizeWidth,
                 child: Column(
@@ -91,6 +104,7 @@ class DetailTukangView extends GetView<DetailTukangController> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               padding: EdgeInsets.only(
@@ -104,9 +118,10 @@ class DetailTukangView extends GetView<DetailTukangController> {
                                     width: Get.width * 0.25,
                                     height: Get.width * 0.25,
                                     child: CircleAvatar(
+                                      backgroundColor: sliderColor,
                                       backgroundImage: NetworkImage(
                                         // 'https://1409791524.rsc.cdn77.org/data/images/full/567629/blackpink-jisoo-all-black-hip-style-lovely-is-a-bonus.jpg',
-                                        photoUrl,
+                                        photoUrl!.toString(),
                                       ),
                                     ),
                                   ),
@@ -117,7 +132,7 @@ class DetailTukangView extends GetView<DetailTukangController> {
                                     children: [
                                       Text(
                                         // '${(listAllDocs as Map<String, dynamic>)["name"]}',
-                                        nameC,
+                                        name!,
                                         style: semiBoldText14.copyWith(
                                             color: blackColor),
                                       ),
@@ -137,6 +152,7 @@ class DetailTukangView extends GetView<DetailTukangController> {
                                 left: 16,
                               ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Pekerjaan yang dikuasai',
@@ -146,135 +162,55 @@ class DetailTukangView extends GetView<DetailTukangController> {
                                   SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
                                     child: Row(
-                                      children: [
-                                        Container(
-                                          height: Get.width * 0.3,
-                                          width: Get.width * 0.3,
-                                          padding: EdgeInsets.only(
-                                            top: 16,
-                                            bottom: 24,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFFEFDF5),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/icons/air_conditioner.png',
-                                                height: 42,
-                                                width: 42,
-                                              ),
-                                              SizedBox(height: 16),
-                                              Text(
-                                                'Air Conditioner',
-                                                style: semiBoldText12.copyWith(
-                                                    color: blackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(width: 16),
-                                        Container(
-                                          height: Get.width * 0.3,
-                                          width: Get.width * 0.3,
-                                          padding: EdgeInsets.only(
-                                            top: 16,
-                                            bottom: 24,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFFEFDF5),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/icons/air_conditioner.png',
-                                                height: 42,
-                                                width: 42,
-                                              ),
-                                              SizedBox(height: 16),
-                                              Text(
-                                                'Air Conditioner',
-                                                style: semiBoldText12.copyWith(
-                                                    color: blackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(width: 16),
-                                        Container(
-                                          height: Get.width * 0.3,
-                                          width: Get.width * 0.3,
-                                          padding: EdgeInsets.only(
-                                            top: 16,
-                                            bottom: 24,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: cardACColor,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/icons/ac_cuci.png',
-                                                height: 42,
-                                                width: 42,
-                                              ),
-                                              SizedBox(height: 16),
-                                              Text(
-                                                'Cuci Ac',
-                                                style: semiBoldText12.copyWith(
-                                                    color: blackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(width: 16),
-                                        Container(
-                                          height: Get.width * 0.3,
-                                          width: Get.width * 0.3,
-                                          padding: EdgeInsets.only(
-                                            top: 16,
-                                            bottom: 24,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: cardPColor,
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Image.asset(
-                                                'assets/icons/plumb.png',
-                                                height: 42,
-                                                width: 42,
-                                              ),
-                                              SizedBox(height: 16),
-                                              Text(
-                                                'Plumbing',
-                                                style: semiBoldText12.copyWith(
-                                                    color: blackColor),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: keahlian!
+                                          .map((kh) => Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 16),
+                                                // height: Get.width * 0.3,
+                                                // width: Get.width * 0.3,
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 29,
+                                                  vertical: 12,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: Color(0xFF6F97B5),
+                                                  ),
+                                                  // color: blueColorColor,
+
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(8),
+                                                  ),
+                                                ),
+                                                // color: Colors.black,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    // Image.asset(
+                                                    //   'assets/icons/icon_tukang.png',
+                                                    //   width: 20,
+                                                    //   height: 20,
+                                                    // ),
+                                                    // SizedBox(height: 8),
+                                                    Center(
+                                                      child: Text(
+                                                        kh,
+                                                        style: semiBoldText12
+                                                            .copyWith(
+                                                                color: Color(
+                                                                    0xFF6F97B5)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList(),
                                     ),
                                   ),
                                 ],
@@ -288,7 +224,7 @@ class DetailTukangView extends GetView<DetailTukangController> {
                 ),
               );
             }
-            return Center(child: CircularProgressIndicator());
+            return Center(child: LoadingScreen());
           }),
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ladder/app/modules/introduction_screen/controllers/introduction_screen_controller.dart';
-import 'package:ladder/app/modules/login/views/login_view.dart';
+
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 

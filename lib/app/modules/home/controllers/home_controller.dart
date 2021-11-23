@@ -37,7 +37,7 @@ class HomeController extends GetxController {
       .collection('cleaningg')
       .snapshots()
       .map((query) => query.docs
-          .map((item) => RepairingModel.fromMap(item.data()))
+          .map((item) => RepairingModel.fromJson(item.data()))
           .toList());
 
   Stream<List<RepairingModel>> getAllCleaningProducts() => firestore
@@ -46,7 +46,7 @@ class HomeController extends GetxController {
       .collection('cleaningg')
       .snapshots()
       .map((query) => query.docs
-          .map((item) => RepairingModel.fromMap(item.data()))
+          .map((item) => RepairingModel.fromJson(item.data()))
           .toList());
 
   Stream<List<RepairingModel>> getAllRepairingProducts() => firestore
@@ -55,6 +55,6 @@ class HomeController extends GetxController {
       .collection('repairingg')
       .snapshots()
       .map((query) => query.docs
-          .map((item) => RepairingModel.fromMap(item.data()))
+          .map((item) => RepairingModel.fromJson(item.data()))
           .toList());
 }

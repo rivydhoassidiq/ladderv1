@@ -31,11 +31,13 @@ class MyApp extends StatelessWidget {
       future: authC.firstInitialized(),
       builder: (context, snapshot) {
         if (_networkController.connectionStatus.value == 0) {
+          // if (snapshot.connectionState == ConnectionState.waiting) {
           return ErrorScreen();
         } else {
-          // if (snapshot.connectionState == ConnectionState.done) {
-          if (_networkController.connectionStatus.value == 1 ||
-              _networkController.connectionStatus.value == 2) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // if (snapshot.connectionState == ConnectionState.done ||
+            //     _networkController.connectionStatus.value == 1 ||
+            //     _networkController.connectionStatus.value == 2) {
             // GetMaterialApp(
             //   debugShowCheckedModeBanner: false,
             //   title: "Ladder",

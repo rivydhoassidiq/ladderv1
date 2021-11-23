@@ -1,5 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +24,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int _current = 0;
   HomeController producsController = Get.put(HomeController());
+
   final CarouselController _controller = CarouselController();
 
   bool isLoading = true;
@@ -39,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
       isLoading = true;
     });
 
-    await Future.delayed(Duration(seconds: 10), () {
+    await Future.delayed(Duration(seconds: 5), () {
       setState(() {
         isLoading = false;
       });
@@ -93,9 +95,9 @@ class _HomeViewState extends State<HomeView> {
         child: isLoading
             ? Center(
                 child: Container(
-                width: 100,
+                width: 50,
                 child: LoadingIndicator(
-                    indicatorType: Indicator.ballRotateChase,
+                    indicatorType: Indicator.ballPulseSync,
 
                     /// Required, The loading type of the widget
                     colors: const [

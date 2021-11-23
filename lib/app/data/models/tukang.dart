@@ -1,7 +1,7 @@
 class TukangModel {
   String? name;
   String? email;
-  String? keahlian;
+  List? keahlian;
   String? photoUrl;
 
   TukangModel({

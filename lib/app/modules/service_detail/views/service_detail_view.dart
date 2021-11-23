@@ -49,7 +49,8 @@ class ServiceDetailView extends GetView<ServiceDetailController> {
             color: Colors.transparent,
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(4)),
-              onTap: () => Get.toNamed(Routes.PILIH_TUKANG),
+              onTap: () =>
+                  Get.toNamed(Routes.PILIH_TUKANG, arguments: product.id),
               child: Center(
                 child: Text(
                   'Pesan Sekarang',
@@ -95,50 +96,6 @@ class ServiceDetailView extends GetView<ServiceDetailController> {
                           product.description.toString(),
                           style: regularText14,
                           textAlign: TextAlign.justify,
-                        ),
-                        SizedBox(height: 24),
-                        Row(
-                          children: [
-                            ContainerIcon(image: 'assets/icons/tanggal.png'),
-                            SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Setiap Hari',
-                                  style: semiBoldText14.copyWith(
-                                      color: blackColor),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  '09.00 - 17.00',
-                                  style: regularText12,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 24),
-                        Row(
-                          children: [
-                            ContainerIcon(image: 'assets/icons/fee.png'),
-                            SizedBox(width: 12),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Fee',
-                                  style: semiBoldText14.copyWith(
-                                      color: blackColor),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  'Rp. 150.000',
-                                  style: regularText12,
-                                ),
-                              ],
-                            ),
-                          ],
                         ),
                       ],
                     ),
