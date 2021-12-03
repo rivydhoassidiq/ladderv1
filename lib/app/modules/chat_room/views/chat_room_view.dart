@@ -6,13 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
+import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 import '../controllers/chat_room_controller.dart';
 
 class ChatRoomView extends GetView<ChatRoomController> {
+  // void closeKeyboard(BuildContext context) {
+  //   FocusScopeNode currentFocus = FocusScope.of(context);
+  //   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null)
+  //     FocusManager.instance.primaryFocus!.unfocus();
+  // }
+
   final authC = Get.find<AuthController>();
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
   final String chat_id = (Get.arguments as Map<String, dynamic>)["chat_id"];
+  final String emailFriend =
+      (Get.arguments as Map<String, dynamic>)["friendEmail"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +31,10 @@ class ChatRoomView extends GetView<ChatRoomController> {
         backgroundColor: whiteColor,
         elevation: 0,
         leadingWidth: 100,
+        automaticallyImplyLeading: true,
         leading: InkWell(
-          onTap: () => Get.back(),
+          // onTap: () => Get.offAllNamed(Routes.BOTTOM_NAV_BAR),
+          onTap: () => Get.toNamed(Routes.CHAT, arguments: emailFriend),
           borderRadius: BorderRadius.circular(100),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,52 +91,32 @@ class ChatRoomView extends GetView<ChatRoomController> {
               );
             }),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              width: Get.width,
-              // color: Colors.green,
-              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: controller.streamChats(chat_id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.active) {
-                    var allData = snapshot.data!.docs;
-                    Timer(
-                      Duration.zero,
-                      () => controller.scrollController.jumpTo(
-                          controller.scrollController.position.maxScrollExtent),
-                    );
-                    return ListView.builder(
-                      controller: controller.scrollController,
-                      itemCount: allData.length,
-                      itemBuilder: (context, index) {
-                        if (index == 0) {
-                          return Column(
-                            children: [
-                              Text("${allData[index]["groupTime"]}"),
-                              ItemChat(
-                                isSender: allData[index]["pengirim"] ==
-                                        authC.user.value.email!
-                                    ? true
-                                    : false,
-                                msg: "${allData[index]["msg"]}",
-                                time: "${allData[index]["time"]}",
-                              ),
-                            ],
-                          );
-                        } else {
-                          if (allData[index]["groupTime"] ==
-                              allData[index - 1]["groupTime"]) {
-                            return ItemChat(
-                              isSender: allData[index]["pengirim"] ==
-                                      authC.user.value.email!
-                                  ? true
-                                  : false,
-                              msg: "${allData[index]["msg"]}",
-                              time: "${allData[index]["time"]}",
-                            );
-                          } else {
+      body: WillPopScope(
+        onWillPop: () async {
+          Get.offAllNamed(Routes.CHAT);
+          return false;
+        },
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                width: Get.width,
+                // color: Colors.green,
+                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream: controller.streamChats(chat_id),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.active) {
+                      var allData = snapshot.data!.docs;
+                      Timer(
+                        Duration.zero,
+                        () => controller.scrollController.jumpTo(controller
+                            .scrollController.position.maxScrollExtent),
+                      );
+                      return ListView.builder(
+                        controller: controller.scrollController,
+                        itemCount: allData.length,
+                        itemBuilder: (context, index) {
+                          if (index == 0) {
                             return Column(
                               children: [
                                 Text("${allData[index]["groupTime"]}"),
@@ -138,77 +130,109 @@ class ChatRoomView extends GetView<ChatRoomController> {
                                 ),
                               ],
                             );
+                          } else {
+                            if (allData[index]["groupTime"] ==
+                                allData[index - 1]["groupTime"]) {
+                              return ItemChat(
+                                isSender: allData[index]["pengirim"] ==
+                                        authC.user.value.email!
+                                    ? true
+                                    : false,
+                                msg: "${allData[index]["msg"]}",
+                                time: "${allData[index]["time"]}",
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  Text("${allData[index]["groupTime"]}"),
+                                  ItemChat(
+                                    isSender: allData[index]["pengirim"] ==
+                                            authC.user.value.email!
+                                        ? true
+                                        : false,
+                                    msg: "${allData[index]["msg"]}",
+                                    time: "${allData[index]["time"]}",
+                                  ),
+                                ],
+                              );
+                            }
                           }
-                        }
-                      },
+                        },
+                      );
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
                     );
-                  }
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
+                  },
+                ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: context.mediaQueryPadding.bottom),
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 20,
-            ),
-            width: Get.width,
-            // color: Colors.amber,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Container(
-                    child: TextField(
-                      autocorrect: false,
-                      controller: controller.chatC,
-                      onEditingComplete: () => controller.newChat(
-                        authC.user.value.email!,
-                        Get.arguments as Map<String, dynamic>,
-                        controller.chatC.text,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: 'Ketik Sesuatu..',
-                        hintStyle: regularText12,
-                        labelStyle: regularText14,
-                        fillColor: Colors.grey[300],
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(4),
+            Container(
+              margin: EdgeInsets.only(bottom: context.mediaQueryPadding.bottom),
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 20,
+              ),
+              width: Get.width,
+              // color: Colors.amber,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Container(
+                      child: TextField(
+                        autocorrect: false,
+                        controller: controller.chatC,
+                        onEditingComplete: () {
+                          controller.newChat(
+                            authC.user.value.email!,
+                            Get.arguments as Map<String, dynamic>,
+                            controller.chatC.text,
+                          );
+                          // closeKeyboard(context);
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Ketik Sesuatu..',
+                          hintStyle: regularText12,
+                          labelStyle: regularText14,
+                          fillColor: Colors.grey[300],
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 10),
-                Material(
-                  borderRadius: BorderRadius.circular(100),
-                  color: blueColorColor,
-                  child: InkWell(
+                  SizedBox(width: 10),
+                  Material(
                     borderRadius: BorderRadius.circular(100),
-                    onTap: () => controller.newChat(
-                      authC.user.value.email!,
-                      Get.arguments as Map<String, dynamic>,
-                      controller.chatC.text,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Icon(
-                        Icons.send,
-                        color: whiteColor,
+                    color: blueColorColor,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(100),
+                      onTap: () {
+                        controller.newChat(
+                          authC.user.value.email!,
+                          Get.arguments as Map<String, dynamic>,
+                          controller.chatC.text,
+                        );
+                        // closeKeyboard(context);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Icon(
+                          Icons.send,
+                          color: whiteColor,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

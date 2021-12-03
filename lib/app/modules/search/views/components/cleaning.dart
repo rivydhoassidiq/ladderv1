@@ -15,7 +15,10 @@ class CleaningCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.PILIH_TUKANG, arguments: product.name),
+      onTap: () => Get.toNamed(
+        Routes.PILIH_TUKANG,
+        arguments: product.name,
+      ),
       child: Container(
         margin: EdgeInsets.only(right: 12, bottom: 5),
         // padding: EdgeInsets.only(vertical: 50),

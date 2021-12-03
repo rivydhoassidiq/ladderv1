@@ -18,14 +18,14 @@ class DetailTukangController extends GetxController {
     return tukangAll.doc(docID).get();
   }
 
-  Future<DocumentSnapshot<Object?>> getData(String docID) async {
-    DocumentReference docRef = firestore.collection('tukang').doc(docID);
-    return docRef.get();
-  }
+  // Future<DocumentSnapshot<Object?>> getData(String docID) async {
+  //   DocumentReference docRef = firestore.collection('tukang').doc(docID);
+  //   return docRef.get();
+  // }
 
-  Future<QuerySnapshot<Object?>> getDataa() async {
-    CollectionReference tukang = firestore.collection("tukang");
+  // Future<QuerySnapshot<Object?>> getDataa() async {
+  //   CollectionReference tukang = firestore.collection("tukang");
 
-    return tukang.get();
-  }
+  //   return tukang.get();
+  // }
 }

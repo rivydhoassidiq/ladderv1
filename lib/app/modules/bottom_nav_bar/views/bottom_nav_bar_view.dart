@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ladder/app/modules/chat/views/chat_view.dart';
 import 'package:ladder/app/modules/home/views/home_view.dart';
 
 import 'package:ladder/app/modules/profile/views/profile_view.dart';
@@ -17,14 +16,13 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
 
   final _screens = [
     HomeView(),
-    ChatView(),
     ProfileView(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         // appBar: AppBar(
         backgroundColor: whiteColor,
@@ -65,19 +63,10 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
                 ),
                 Tab(
                   icon: Image.asset(
-                    'assets/icons/chat.png',
-                    height: 24,
-                    width: 24,
-                    color: _selectedIndex == 1 ? bottomBlueColor : sliderColor,
-                  ),
-                  text: "Chat",
-                ),
-                Tab(
-                  icon: Image.asset(
                     'assets/icons/profilepict.png',
                     height: 24,
                     width: 24,
-                    color: _selectedIndex == 2 ? bottomBlueColor : sliderColor,
+                    color: _selectedIndex == 1 ? bottomBlueColor : sliderColor,
                   ),
                   text: "Profile",
                 ),

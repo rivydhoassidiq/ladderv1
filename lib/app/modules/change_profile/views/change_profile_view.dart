@@ -13,6 +13,12 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
 
   @override
   Widget build(BuildContext context) {
+    void closeKeyboard(BuildContext context) {
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null)
+        FocusManager.instance.primaryFocus!.unfocus();
+    }
+
     controller.emailC.text = authC.user.value.email!;
     controller.namaC.text = authC.user.value.name!;
     controller.noTelpC.text = authC.user.value.phoneNumber!;
@@ -21,7 +27,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
 
     final heightC = sizeC;
 
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,13}$)';
     RegExp regExp = new RegExp(pattern);
 
     return Scaffold(
@@ -71,19 +77,19 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                                 backgroundImage:
                                     NetworkImage(authC.user.value.photoUrl!),
                               ),
-                              Positioned(
-                                bottom: -16,
-                                right: -10,
-                                child: SizedBox(
-                                  height: 53,
-                                  width: 53,
-                                  child: FlatButton(
-                                    onPressed: () {},
-                                    child:
-                                        Image.asset('assets/icons/change.png'),
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   bottom: -16,
+                              //   right: -10,
+                              //   child: SizedBox(
+                              //     height: 53,
+                              //     width: 53,
+                              //     child: FlatButton(
+                              //       onPressed: () {},
+                              //       child:
+                              //           Image.asset('assets/icons/change.png'),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -109,6 +115,8 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                                 return null;
                               },
                               controller: controller.namaC,
+                              autofocus: false,
+                              autocorrect: false,
                               textInputAction: TextInputAction.next,
                               style: semiBoldText14,
                             ),
@@ -128,7 +136,9 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                                 return null;
                               },
                               controller: controller.noTelpC,
-                              textInputAction: TextInputAction.done,
+                              autofocus: false,
+                              autocorrect: false,
+                              // textInputAction: TextInputAction.done,
                               onEditingComplete: () {
                                 if (forKey.currentState!.validate()) {
                                   return authC.changeProfile(
@@ -137,6 +147,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                                 } else {
                                   print('Gagal');
                                 }
+                                closeKeyboard(context);
                               },
                               style: semiBoldText14,
                               keyboardType: TextInputType.number,
@@ -150,7 +161,8 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                               controller: controller.emailC,
                               readOnly: true,
                               // textInputAction: TextInputAction.next,
-                              style: semiBoldText14,
+                              style:
+                                  semiBoldText14.copyWith(color: sliderColor),
                             ),
                           ],
                         ),
@@ -169,7 +181,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                             color: sliderColor,
                           ),
                           child: Material(
-                            color: Colors.transparent,
+                            color: blueColorColor,
                             child: Center(
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(4),

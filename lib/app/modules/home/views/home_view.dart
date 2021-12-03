@@ -10,9 +10,9 @@ import 'package:ladder/app/modules/search/views/components/repairing_card.dart';
 import 'package:ladder/app/modules/search/views/components/search_field.dart';
 import 'package:ladder/app/modules/search/views/components/text_cleaning.dart';
 import 'package:ladder/app/modules/search/views/components/text_repairing.dart';
+import 'package:ladder/app/utils/loading_screen.dart';
 
 import 'package:ladder/app/utils/theme.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
       isLoading = true;
     });
 
-    await Future.delayed(Duration(seconds: 5), () {
+    await Future.delayed(Duration(seconds: 2), () {
       setState(() {
         isLoading = false;
       });
@@ -93,33 +93,7 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: whiteColor,
       body: SafeArea(
         child: isLoading
-            ? Center(
-                child: Container(
-                width: 50,
-                child: LoadingIndicator(
-                    indicatorType: Indicator.ballPulseSync,
-
-                    /// Required, The loading type of the widget
-                    colors: const [
-                      Colors.red,
-                      Colors.green,
-                      Colors.blue,
-                      Colors.yellow,
-                      Colors.purple
-                    ],
-
-                    /// Optional, The color collections
-                    strokeWidth: 2,
-
-                    /// Optional, The stroke of the line, only applicable to widget which contains line
-                    backgroundColor: Colors.white,
-
-                    /// Optional, Background of the widget
-                    pathBackgroundColor: Colors.white
-
-                    /// Optional, the stroke backgroundColor
-                    ),
-              ))
+            ? LoadingScreen()
             : ListView(
                 scrollDirection: Axis.vertical,
                 children: [
@@ -130,6 +104,7 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                       children: [
                         SearchField(heightC: heightC, sizeHeight: sizeHeight),
+                        // IconChat(),
                         const SizedBox(height: 16),
                         CarouselSlider(
                             items: imgList,

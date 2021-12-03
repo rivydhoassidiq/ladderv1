@@ -11,13 +11,7 @@ class CleaningPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sizeWidth = MediaQuery.of(context).size.width;
-    final sizeHeight = MediaQuery.of(context).size.height;
     HomeController producsController = Get.put(HomeController());
-
-    final widthC = sizeWidth;
-    final heightC = sizeHeight;
-
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(

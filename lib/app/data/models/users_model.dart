@@ -10,12 +10,14 @@ class UsersModel {
   UsersModel({
     this.uid,
     this.name,
-    this.email,
     this.phoneNumber,
-    this.photoUrl,
-    this.keahlian,
+    this.email,
     this.creationTime,
     this.lastSignInTime,
+    this.photoUrl,
+    this.keahlian,
+    this.umur,
+    this.role,
     this.updatedTime,
     this.chats,
   });
@@ -27,6 +29,9 @@ class UsersModel {
   String? phoneNumber;
   String? photoUrl;
   List? keahlian;
+  String? umur;
+  // List<String>? keahlian;
+  String? role;
   String? creationTime;
   String? lastSignInTime;
   String? updatedTime;
@@ -40,6 +45,9 @@ class UsersModel {
         phoneNumber: json["phoneNumber"],
         photoUrl: json["photoUrl"],
         keahlian: json["keahlian"],
+        umur: json["umur"],
+        // keahlian: List<String>.from(json["keahlian"].map((x) => x)),
+        role: json["role"],
         creationTime: (json["creationTime"]),
         lastSignInTime: (json["lastSignInTime"]),
         updatedTime: (json["updatedTime"]),
@@ -53,7 +61,10 @@ class UsersModel {
 
         "email": email,
         "phoneNumber": phoneNumber,
-        "keahlian": keahlian,
+        // "keahlian": keahlian,
+        "keahlian": List<dynamic>.from(keahlian!.map((x) => x)),
+        "umur": umur,
+        "role": role,
         "photoUrl": photoUrl,
         "creationTime": creationTime,
         "lastSignInTime": lastSignInTime,
@@ -89,3 +100,10 @@ class ChatUser {
         "total_unread": total_unread,
       };
 }
+
+// To parse this JSON data, do
+//
+//     final usersModel = usersModelFromJson(jsonString);
+
+
+

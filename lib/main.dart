@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:get/get.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
+import 'package:ladder/app/utils/theme.dart';
 
 import 'app/controllers/network_controller.dart';
 import 'app/routes/app_pages.dart';
@@ -14,6 +15,8 @@ import 'app/utils/error_screen.dart';
 import 'app/utils/splash_screen.dart';
 
 void main() async {
+  ErrorWidget.builder = (FlutterErrorDetails details) =>
+      Scaffold(body: Container(color: whiteColor));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await GetStorage.init();

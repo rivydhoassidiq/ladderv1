@@ -270,6 +270,11 @@ class AuthController extends GetxController {
     Get.defaultDialog(
       title: 'Informasi',
       middleText: "Perubahan Berhasil",
+      onConfirm: () {
+        Text('Ok bang');
+        Get.back();
+        Get.back();
+      },
     );
 
     user.refresh();
@@ -465,7 +470,8 @@ class AuthController extends GetxController {
             await users.doc(_currentUser!.email).collection("chats").get();
 
         if (listChats.docs.length != 0) {
-          List<ChatUser> dataListChats = List<ChatUser>.empty();
+          // List<ChatUser> dataListChats = List<ChatUser>.empty();
+          List<ChatUser> dataListChats = [];
           listChats.docs.forEach((element) {
             var dataDocChat = element.data();
             var dataDocChatId = element.id;

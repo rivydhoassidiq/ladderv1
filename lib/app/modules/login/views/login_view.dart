@@ -18,6 +18,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView>
     with SingleTickerProviderStateMixin {
   bool isLogin = true;
+  bool isLoading = false;
   late Animation<double> containerSize;
 
   late AnimationController animationController;

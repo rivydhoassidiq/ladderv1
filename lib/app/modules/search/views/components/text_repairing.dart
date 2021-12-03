@@ -16,23 +16,24 @@ class TextRepairing extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.amber,
-      width: sizeWidth - widthC / 9,
+      // width: sizeWidth - widthC / 9,
       // height: sizeHeight - heightC * 5,
-      // width: double.infinity,
-      // height: 200,
+      margin: EdgeInsets.symmetric(horizontal: 9),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             'Repairing',
-            style: boldText16.copyWith(color: blackColor),
+            style: boldText16.copyWith(color: blackColor, fontSize: 14),
           ),
+          SizedBox(width: 8),
           Container(
-            width: 150,
+            width: sizeWidth - widthC / 1.5,
             height: 1,
             color: sliderColor,
           ),
+          // SizedBox(width: 8),
           TextButton(
             onPressed: () => Navigator.push(
               context,
@@ -42,7 +43,7 @@ class TextRepairing extends StatelessWidget {
             ),
             child: Text(
               'Lihat Semua',
-              style: boldText12.copyWith(color: blackColor),
+              style: boldText12.copyWith(color: blueColorColor),
             ),
           ),
         ],

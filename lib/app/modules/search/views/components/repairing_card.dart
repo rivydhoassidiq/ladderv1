@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ladder/app/data/models/reapiring.dart';
-import 'package:ladder/app/modules/service_detail/views/service_detail_view.dart';
+
+import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
 
 class RepairingCard extends StatelessWidget {
@@ -13,8 +15,10 @@ class RepairingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ServiceDetailView(product))),
+      onTap: () => Get.toNamed(
+        Routes.PILIH_TUKANG,
+        arguments: product.name,
+      ),
       child: Container(
         margin: EdgeInsets.only(right: 12, bottom: 5),
         // padding: EdgeInsets.only(vertical: 50),
