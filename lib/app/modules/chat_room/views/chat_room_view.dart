@@ -12,12 +12,6 @@ import 'package:ladder/app/utils/theme.dart';
 import '../controllers/chat_room_controller.dart';
 
 class ChatRoomView extends GetView<ChatRoomController> {
-  // void closeKeyboard(BuildContext context) {
-  //   FocusScopeNode currentFocus = FocusScope.of(context);
-  //   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null)
-  //     FocusManager.instance.primaryFocus!.unfocus();
-  // }
-
   final authC = Get.find<AuthController>();
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final String chat_id = (Get.arguments as Map<String, dynamic>)["chat_id"];
@@ -34,7 +28,7 @@ class ChatRoomView extends GetView<ChatRoomController> {
         automaticallyImplyLeading: true,
         leading: InkWell(
           // onTap: () => Get.offAllNamed(Routes.BOTTOM_NAV_BAR),
-          onTap: () => Get.toNamed(Routes.CHAT, arguments: emailFriend),
+          onTap: () => Get.toNamed(Routes.CHAT),
           borderRadius: BorderRadius.circular(100),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

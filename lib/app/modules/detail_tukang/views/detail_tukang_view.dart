@@ -189,11 +189,12 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                         style: semiBoldText14.copyWith(
                                             color: blackColor),
                                       ),
-                                      // SizedBox(height: 8),
+                                      SizedBox(height: 4),
                                       Text(
                                         umur! + " " + "Tahun",
                                         style: regularText12,
                                       ),
+                                      SizedBox(height: 4),
                                       StreamBuilder(
                                         stream: FirebaseFirestore.instance
                                             .collection('users')
@@ -322,8 +323,8 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                         child: Text(
                                           "Berikan Rating",
                                           style: semiBoldText14.copyWith(
-                                              // color: ,
-                                              ),
+                                            color: blueColorColor,
+                                          ),
                                         ),
                                       ),
                                     ),

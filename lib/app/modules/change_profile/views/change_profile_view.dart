@@ -7,7 +7,6 @@ import 'package:ladder/app/utils/theme.dart';
 import '../controllers/change_profile_controller.dart';
 
 class ChangeProfileView extends GetView<ChangeProfileController> {
-  // final _controller = Get.find<ChangeProfileController>();
   final authC = Get.find<AuthController>();
   final GlobalKey<FormState> forKey = GlobalKey<FormState>();
 

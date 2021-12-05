@@ -26,7 +26,7 @@ class _BottomNavBarrState extends State<BottomNavBarView> {
       child: Scaffold(
         // appBar: AppBar(
         backgroundColor: whiteColor,
-        //   elevation: 0,
+
         // ),
         bottomNavigationBar: Material(
           child: Container(

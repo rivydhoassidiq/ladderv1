@@ -147,9 +147,10 @@ class ChatView extends GetView<ChatController> {
                                             ],
                                           );
                                   }
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
+                                  return Container();
+                                  // return Center(
+                                  //   child: CircularProgressIndicator(),
+                                  // );
                                 },
                               );
                             });

@@ -49,9 +49,9 @@ class SearchField extends StatelessWidget {
           ),
         ),
         Container(
-          alignment: Alignment.center,
+          // alignment: Alignment.center,
           // color: Colors.amber,
-          padding: EdgeInsets.only(top: 30),
+          // padding: EdgeInsets.only(top: 20),
           height: heightC - sizeHeight / 1.15,
           child: StreamBuilder(
               stream: FirebaseFirestore.instance

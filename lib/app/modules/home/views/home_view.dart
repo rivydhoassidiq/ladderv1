@@ -59,8 +59,6 @@ class _HomeViewState extends State<HomeView> {
     List<Widget> imgList = [
       Container(
         width: widthC - sizeWidth / 8,
-        // height: 500,
-        // margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/sliderimage1.png'),
@@ -69,8 +67,6 @@ class _HomeViewState extends State<HomeView> {
       ),
       Container(
         width: widthC - sizeWidth / 8,
-        // height: 500,
-        // margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/sliderimage1.png'),
@@ -79,8 +75,6 @@ class _HomeViewState extends State<HomeView> {
       ),
       Container(
         width: widthC - sizeWidth / 8,
-        // height: 500,
-        // margin: EdgeInsets.symmetric(horizontal: 5.0),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/sliderimage1.png'),

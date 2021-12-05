@@ -190,19 +190,6 @@ class AuthController extends GetxController {
         final currUser = await users.doc(_currentUser!.email).get();
         final currUserData = currUser.data() as Map<String, dynamic>;
 
-        // user(
-        //   UsersModel(
-        //     uid: currUserData["uid"],
-        //     name: currUserData["name"],
-        //     phoneNumber: currUserData["phoneNumber"],
-        //     email: currUserData["email"],
-        //     photoUrl: currUserData["photoUrl"],
-        //     creationTime: currUserData["creationTime"],
-        //     lastSignInTime: currUserData["lastSignInTime"],
-        //     updatedTime: currUserData["updateTime"],
-        //   ),
-        // );
-
         user(UsersModel.fromJson(currUserData));
 
         user.refresh();
