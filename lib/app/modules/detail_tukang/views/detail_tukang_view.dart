@@ -219,24 +219,50 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                           });
                                           double rating1 = (ratings.sum) /
                                               snapshot.data.docs.length;
-                                          return Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Icon(Icons.star_rate_rounded,
-                                                  size: 15,
-                                                  color: Color(0xFFFFC107)),
-                                              Text(
-                                                double.parse("$rating1")
-                                                    .toStringAsFixed(1),
-                                                style: regularText12.copyWith(
-                                                  color: Colors.grey.shade600,
-                                                ),
-                                              )
-                                            ],
-                                          );
+                                          return snapshot.data.docs.length == 0
+                                              ? Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                        Icons.star_rate_rounded,
+                                                        size: 15,
+                                                        color:
+                                                            Color(0xFFFFC107)),
+                                                    Text(
+                                                      '1.0',
+                                                      style: regularText12
+                                                          .copyWith(
+                                                        color: Colors
+                                                            .grey.shade600,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              : Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                        Icons.star_rate_rounded,
+                                                        size: 15,
+                                                        color:
+                                                            Color(0xFFFFC107)),
+                                                    Text(
+                                                      double.parse("$rating1")
+                                                          .toStringAsFixed(1),
+                                                      style: regularText12
+                                                          .copyWith(
+                                                        color: Colors
+                                                            .grey.shade600,
+                                                      ),
+                                                    )
+                                                  ],
+                                                );
                                         },
                                       ),
                                     ],

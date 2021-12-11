@@ -11,7 +11,7 @@ class ButtonTentang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _launchURL() async {
-      const url = 'https://flutter.io';
+      const url = 'https://ladder.my.id';
       if (await canLaunch(url)) {
         Get.defaultDialog(middleText: "Loading....");
         await launch(url);
