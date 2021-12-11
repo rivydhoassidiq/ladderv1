@@ -109,7 +109,7 @@ class _LoginViewState extends State<LoginView>
                         ),
                         RoundedButtonLGGG(
                             image: 'assets/icons/google.png',
-                            title: 'Login dengan Google'),
+                            title: 'Login with Google'),
                       ],
                     ),
                   ),
@@ -164,7 +164,7 @@ class _LoginViewState extends State<LoginView>
                           // SizedBox(height: 20),
                           RoundedButtonSGGG(
                               image: 'assets/icons/google.png',
-                              title: 'SignUp dengan Google'),
+                              title: 'Signup with Google'),
                         ],
                       ),
                     ),

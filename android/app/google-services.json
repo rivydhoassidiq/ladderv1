@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "694977070383-5ke1u3p3t13itls4398lnaldpaovg043.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blumeteam.ladder",
+            "certificate_hash": "20c5bee17e956e602ff8ab6d56c3d2c1104f22af"
+          }
+        },
+        {
+          "client_id": "694977070383-e08upssut6ev50c1qcus9leqiaup53jp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blumeteam.ladder",
+            "certificate_hash": "e62fc055e344670797aabbcf484f263a434cb3b0"
+          }
+        },
+        {
           "client_id": "694977070383-ro5pjmkfudsa7vk3unq9r59dmgqc8pqi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
