@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "694977070383-0rsf9rie3bh5go749bhb2jmon0iul0l2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blumeteam.ladder",
+            "certificate_hash": "6128eafb00f10a8a1ef2a8d85c8be007fd0d443e"
+          }
+        },
+        {
           "client_id": "694977070383-5ke1u3p3t13itls4398lnaldpaovg043.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

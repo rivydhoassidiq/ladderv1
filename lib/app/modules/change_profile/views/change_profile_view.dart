@@ -20,7 +20,12 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
 
     controller.emailC.text = authC.user.value.email!;
     controller.namaC.text = authC.user.value.name!;
+    controller.namaC.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.namaC.text.length));
+
     controller.noTelpC.text = authC.user.value.phoneNumber!;
+    controller.noTelpC.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.noTelpC.text.length));
 
     final sizeC = MediaQuery.of(context).size.height;
 
@@ -137,7 +142,7 @@ class ChangeProfileView extends GetView<ChangeProfileController> {
                               controller: controller.noTelpC,
                               autofocus: false,
                               autocorrect: false,
-                              // textInputAction: TextInputAction.done,
+                              textInputAction: TextInputAction.done,
                               onEditingComplete: () {
                                 if (forKey.currentState!.validate()) {
                                   return authC.changeProfile(

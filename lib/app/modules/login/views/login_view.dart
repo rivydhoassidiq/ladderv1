@@ -109,7 +109,7 @@ class _LoginViewState extends State<LoginView>
                         ),
                         RoundedButtonLGGG(
                             image: 'assets/icons/google.png',
-                            title: 'Login with Google'),
+                            title: 'Masuk dengan Google'),
                       ],
                     ),
                   ),
@@ -118,114 +118,114 @@ class _LoginViewState extends State<LoginView>
             ),
 
             // Register Container
-            AnimatedBuilder(
-              animation: animationController,
-              builder: (context, child) {
-                if (viewInset == 0 && isLogin) {
-                  return buildRegisterContainer();
-                } else if (!isLogin) {
-                  return buildRegisterContainer();
-                }
+            // AnimatedBuilder(
+            //   animation: animationController,
+            //   builder: (context, child) {
+            //     if (viewInset == 0 && isLogin) {
+            //       return buildRegisterContainer();
+            //     } else if (!isLogin) {
+            //       return buildRegisterContainer();
+            //     }
 
-                // mengembalikan container kosong saat disembunyikan dari widget
-                return Container();
-              },
-            ),
+            //     // mengembalikan container kosong saat disembunyikan dari widget
+            //     return Container();
+            //   },
+            // ),
 
-            //Register Form
-            AnimatedOpacity(
-              opacity: isLogin ? 0.0 : 1.0,
-              duration: Duration(milliseconds: 270 * 5),
-              child: Visibility(
-                visible: !isLogin,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: SingleChildScrollView(
-                    child: Container(
-                      width: size.width,
-                      height: defaultLoginSize,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Welcome',
-                            style: boldText24,
-                          ),
-                          SizedBox(height: 40),
-                          Container(
-                            width: Get.width * 0.8,
-                            height: Get.width * 0.8,
-                            child: Lottie.asset('assets/lottie/register.json'),
-                          ),
-                          // RoundedButtonSGFB(
-                          //     image: 'assets/icons/facebook.png',
-                          //     title: 'Daftar dengan Facebook'),
-                          // SizedBox(height: 20),
-                          RoundedButtonSGGG(
-                              image: 'assets/icons/google.png',
-                              title: 'Signup with Google'),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // //Register Form
+            // AnimatedOpacity(
+            //   opacity: isLogin ? 0.0 : 1.0,
+            //   duration: Duration(milliseconds: 270 * 5),
+            //   child: Visibility(
+            //     visible: !isLogin,
+            //     child: Align(
+            //       alignment: Alignment.center,
+            //       child: SingleChildScrollView(
+            //         child: Container(
+            //           width: size.width,
+            //           height: defaultLoginSize,
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             children: [
+            //               Text(
+            //                 'Welcome',
+            //                 style: boldText24,
+            //               ),
+            //               SizedBox(height: 40),
+            //               Container(
+            //                 width: Get.width * 0.8,
+            //                 height: Get.width * 0.8,
+            //                 child: Lottie.asset('assets/lottie/register.json'),
+            //               ),
+            //               // RoundedButtonSGFB(
+            //               //     image: 'assets/icons/facebook.png',
+            //               //     title: 'Daftar dengan Facebook'),
+            //               // SizedBox(height: 20),
+            //               RoundedButtonSGGG(
+            //                   image: 'assets/icons/google.png',
+            //                   title: 'Signup with Google'),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildRegisterContainer() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        width: double.infinity,
-        height: containerSize.value,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(100),
-            topRight: Radius.circular(100),
-          ),
-          color: sliderColor2,
-        ),
-        alignment: Alignment.center,
-        child: GestureDetector(
-          // onTap: isLogin
-          //     ? null
-          //     : () {
-          onTap: () {
-            setState(() {
-              animationController.forward();
-              isLogin = !isLogin;
-            });
-          },
-          child: isLogin
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Belum punya akun? ",
-                      style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        color: fbColor,
-                      ),
-                    ),
-                    Text(
-                      "Daftar",
-                      style: GoogleFonts.openSans(
-                        fontSize: 18,
-                        color: fbColor,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ],
-                )
-              : null,
-        ),
-      ),
-    );
-  }
+  // Widget buildRegisterContainer() {
+  //   return Align(
+  //     alignment: Alignment.bottomCenter,
+  //     child: Container(
+  //       width: double.infinity,
+  //       height: containerSize.value,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.only(
+  //           topLeft: Radius.circular(100),
+  //           topRight: Radius.circular(100),
+  //         ),
+  //         color: sliderColor2,
+  //       ),
+  //       alignment: Alignment.center,
+  //       child: GestureDetector(
+  //         // onTap: isLogin
+  //         //     ? null
+  //         //     : () {
+  //         onTap: () {
+  //           setState(() {
+  //             animationController.forward();
+  //             isLogin = !isLogin;
+  //           });
+  //         },
+  //         child: isLogin
+  //             ? Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Text(
+  //                     "Belum punya akun? ",
+  //                     style: GoogleFonts.openSans(
+  //                       fontSize: 18,
+  //                       color: fbColor,
+  //                     ),
+  //                   ),
+  //                   Text(
+  //                     "Daftar",
+  //                     style: GoogleFonts.openSans(
+  //                       fontSize: 18,
+  //                       color: fbColor,
+  //                       decoration: TextDecoration.underline,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               )
+  //             : null,
+  //       ),
+  //     ),
+  //   );
+  // }
 }
