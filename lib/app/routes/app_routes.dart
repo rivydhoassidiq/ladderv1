@@ -20,6 +20,8 @@ abstract class Routes {
   static const SERVICE_DETAIL = _Paths.SERVICE_DETAIL;
   static const PILIH_TUKANG = _Paths.PILIH_TUKANG;
   static const DETAIL_TUKANG = _Paths.DETAIL_TUKANG;
+  static const GIFT_RATINIG = _Paths.GIFT_RATINIG;
+  static const DETAIL_RATING = _Paths.DETAIL_RATING;
 }
 
 abstract class _Paths {
@@ -39,4 +41,6 @@ abstract class _Paths {
   static const SERVICE_DETAIL = '/service-detail';
   static const PILIH_TUKANG = '/pilih-tukang';
   static const DETAIL_TUKANG = '/detail-tukang';
+  static const GIFT_RATINIG = '/gift-ratinig';
+  static const DETAIL_RATING = '/detail-rating';
 }

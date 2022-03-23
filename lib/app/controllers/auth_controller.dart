@@ -120,7 +120,7 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> login() async {
+  Future<User?> login() async {
     // BUAT FUNGSI UNTUK LOGIN DENGAN GOOGLE
     try {
       //HANDLE KEBOCORAN DATA USER SEBELUM LOGIN
@@ -268,9 +268,6 @@ class AuthController extends GetxController {
   }
 
   Future<void> logOut() async {
-    await _googleSignIn.disconnect();
-    await _googleSignIn.signOut();
-
     Get.defaultDialog(
       title: 'Informasi',
       middleText: 'Anda yakin ingin Keluar?',
@@ -288,8 +285,11 @@ class AuthController extends GetxController {
           color: Colors.transparent,
           child: InkWell(
             borderRadius: BorderRadius.circular(4),
-            onTap: () {
-              Get.toNamed(Routes.LOGIN);
+            onTap: () async {
+              await _googleSignIn.disconnect();
+              await _googleSignIn.signOut();
+
+              Get.offAllNamed(Routes.LOGIN);
             },
             child: Center(
               child: Text('Iya',

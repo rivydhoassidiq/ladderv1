@@ -30,7 +30,19 @@ class _RoundedButtonLGGGState extends State<RoundedButtonLGGG> {
       onTap: () {
         setState(() {
           isLoading = true;
-          authC.login();
+          authC.login().then((user) {
+            if (user != null) {
+              setState(() {
+                print('login succes');
+                isLoading = false;
+              });
+            } else {
+              setState(() {
+                print('login failed');
+                isLoading = false;
+              });
+            }
+          });
         });
       },
       borderRadius: BorderRadius.circular(30),

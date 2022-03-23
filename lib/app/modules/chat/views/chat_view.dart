@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/routes/app_pages.dart';
+import 'package:ladder/app/utils/loading_screen.dart';
 
 import 'package:ladder/app/utils/theme.dart';
 
@@ -43,120 +44,116 @@ class ChatView extends GetView<ChatController> {
                       if (snapshot1.connectionState == ConnectionState.active) {
                         var allChats = snapshot1.data!.docs;
 
-                        return ListView.builder(
-                            itemCount: allChats.length,
-                            itemBuilder: (context, index) {
-                              return StreamBuilder<
-                                  DocumentSnapshot<Map<String, dynamic>>>(
-                                stream: controller1.friendStream(
-                                    allChats[index]["connection"]),
-                                builder: (context, snapshot2) {
-                                  if (snapshot2.connectionState ==
-                                      ConnectionState.active) {
-                                    var data = snapshot2.data!.data();
-                                    return allChats.length == 0
-                                        ? Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              // crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  // color: Colors.amber,
-                                                  margin: const EdgeInsets.only(
-                                                      top: 83),
-                                                  // width: 230,
-                                                  // height: 230,
-                                                  child: const Image(
-                                                    image: AssetImage(
-                                                        'assets/images/kosong.png'),
-                                                    width: 230,
-                                                    height: 230,
-                                                  ),
+                        return allChats.length == 0
+                            ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      // color: Colors.amber,
+                                      // margin: const EdgeInsets.only(top: 83),
+                                      // width: 230,
+                                      // height: 230,
+                                      child: const Image(
+                                        image: AssetImage(
+                                            'assets/images/kosong.png'),
+                                        width: 230,
+                                        height: 230,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Belum ada pesan',
+                                      style: boldText16,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Anda bisa mengirim pesan kepada mitra kami disini.',
+                                      style: semiBoldText12.copyWith(
+                                          color: sliderColor),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: allChats.length,
+                                itemBuilder: (context, index) {
+                                  return StreamBuilder<
+                                      DocumentSnapshot<Map<String, dynamic>>>(
+                                    stream: controller1.friendStream(
+                                        allChats[index]["connection"]),
+                                    builder: (context, snapshot2) {
+                                      if (snapshot2.connectionState ==
+                                          ConnectionState.active) {
+                                        var data = snapshot2.data!.data();
+                                        return Column(
+                                          children: [
+                                            ListTile(
+                                              onTap: () =>
+                                                  controller1.goToChatRoom(
+                                                      "${allChats[index].id}",
+                                                      authC.user.value.email!,
+                                                      allChats[index]
+                                                          ["connection"]),
+                                              leading: CircleAvatar(
+                                                backgroundColor: whiteColor,
+                                                backgroundImage: NetworkImage(
+                                                  "${data!["photoUrl"]}",
                                                 ),
-                                                const SizedBox(height: 16),
-                                                Text(
-                                                  'Belum ada pesan',
-                                                  style: boldText16,
-                                                ),
-                                                const SizedBox(height: 16),
-                                                Text(
-                                                  'Anda bisa mengirim pesan kepada mitra kami disini.',
-                                                  style:
-                                                      semiBoldText12.copyWith(
-                                                          color: sliderColor),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : Column(
-                                            children: [
-                                              ListTile(
-                                                onTap: () =>
-                                                    controller1.goToChatRoom(
-                                                        "${allChats[index].id}",
-                                                        authC.user.value.email!,
-                                                        allChats[index]
-                                                            ["connection"]),
-                                                leading: CircleAvatar(
-                                                  backgroundColor: whiteColor,
-                                                  backgroundImage: NetworkImage(
-                                                    "${data!["photoUrl"]}",
-                                                  ),
-                                                  radius: 25,
-                                                ),
-                                                title: Text(
-                                                  "${data["name"]}",
-                                                  style:
-                                                      semiBoldText14.copyWith(
-                                                          color: blackColor),
-                                                ),
-                                                trailing: allChats[index]
-                                                            ["total_unread"] ==
-                                                        0
-                                                    ? Text(
-                                                        "${allChats[index]["lastTime"]}"
-                                                            .substring(11, 16),
+                                                radius: 25,
+                                              ),
+                                              title: Text(
+                                                "${data["name"]}",
+                                                style: semiBoldText14.copyWith(
+                                                    color: blackColor),
+                                              ),
+                                              trailing: allChats[index]
+                                                          ["total_unread"] ==
+                                                      0
+                                                  ? Text(
+                                                      "${allChats[index]["lastTime"]}"
+                                                          .substring(11, 16),
+                                                      style: regularText12
+                                                          .copyWith(
+                                                              color:
+                                                                  Colors.grey),
+                                                    )
+                                                  : Chip(
+                                                      backgroundColor:
+                                                          blueColorColor,
+                                                      label: Text(
+                                                        "${allChats[index]["total_unread"]}",
                                                         style: regularText12
                                                             .copyWith(
-                                                                color: Colors
-                                                                    .grey),
-                                                      )
-                                                    : Chip(
-                                                        backgroundColor:
-                                                            blueColorColor,
-                                                        label: Text(
-                                                          "${allChats[index]["total_unread"]}",
-                                                          style: regularText12
-                                                              .copyWith(
-                                                                  color:
-                                                                      whiteColor),
-                                                        ),
+                                                                color:
+                                                                    whiteColor),
                                                       ),
+                                                    ),
+                                            ),
+                                            // SizedBox(height: 16),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0, right: 25.0),
+                                              child: Divider(
+                                                color: sliderColor,
+                                                thickness: 0.5,
+                                                height: 16,
                                               ),
-                                              // SizedBox(height: 16),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 25.0, right: 25.0),
-                                                child: Divider(
-                                                  color: sliderColor,
-                                                  thickness: 0.5,
-                                                  height: 16,
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                  }
-                                  return Container();
-                                  // return Center(
-                                  //   child: CircularProgressIndicator(),
-                                  // );
-                                },
-                              );
-                            });
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                      return Container();
+                                      // return Center(
+                                      //   child: CircularProgressIndicator(),
+                                      // );
+                                    },
+                                  );
+                                });
                       }
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: LoadingScreen(),
                       );
                     },
                   ),

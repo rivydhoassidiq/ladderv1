@@ -8,8 +8,12 @@ import 'package:ladder/app/modules/chat/bindings/chat_binding.dart';
 import 'package:ladder/app/modules/chat/views/chat_view.dart';
 import 'package:ladder/app/modules/chat_room/bindings/chat_room_binding.dart';
 import 'package:ladder/app/modules/chat_room/views/chat_room_view.dart';
+import 'package:ladder/app/modules/detail_rating/bindings/detail_rating_binding.dart';
+import 'package:ladder/app/modules/detail_rating/views/detail_rating_view.dart';
 import 'package:ladder/app/modules/detail_tukang/bindings/detail_tukang_binding.dart';
 import 'package:ladder/app/modules/detail_tukang/views/detail_tukang_view.dart';
+import 'package:ladder/app/modules/gift_ratinig/bindings/gift_ratinig_binding.dart';
+import 'package:ladder/app/modules/gift_ratinig/views/gift_ratinig_view.dart';
 import 'package:ladder/app/modules/home/bindings/home_binding.dart';
 import 'package:ladder/app/modules/home/views/home_view.dart';
 import 'package:ladder/app/modules/introduction_screen/bindings/introduction_screen_binding.dart';
@@ -98,6 +102,16 @@ class AppPages {
       name: _Paths.DETAIL_TUKANG,
       page: () => DetailTukangView(),
       binding: DetailTukangBinding(),
+    ),
+    GetPage(
+      name: _Paths.GIFT_RATINIG,
+      page: () => GiftRatinigView(),
+      binding: GiftRatinigBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_RATING,
+      page: () => DetailRatingView(),
+      binding: DetailRatingBinding(),
     ),
   ];
 }

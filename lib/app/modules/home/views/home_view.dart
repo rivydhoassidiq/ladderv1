@@ -11,6 +11,7 @@ import 'package:ladder/app/modules/search/views/components/search_field.dart';
 import 'package:ladder/app/modules/search/views/components/text_cleaning.dart';
 import 'package:ladder/app/modules/search/views/components/text_repairing.dart';
 import 'package:ladder/app/utils/loading_screen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:ladder/app/utils/theme.dart';
 
@@ -98,6 +99,38 @@ class _HomeViewState extends State<HomeView> {
                     child: Column(
                       children: [
                         SearchField(heightC: heightC, sizeHeight: sizeHeight),
+                        const SizedBox(height: 8),
+                        Container(
+                            margin: EdgeInsets.only(right: 16, left: 16),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                            width: double.infinity,
+                            // height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: blueColorColor),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/informasi.png',
+                                  width: Get.width / 18,
+                                  height: Get.width / 18,
+                                ),
+                                SizedBox(width: 10),
+                                SizedBox(
+                                  width: 300,
+                                  child: AutoSizeText(
+                                    'Jasa Masih Hanya Berlaku di Daerah Kota Makassar',
+                                    maxLines: 1,
+                                    minFontSize: 9,
+                                    // minFontSize: 8,
+                                    style: semiBoldText12.copyWith(
+                                        color: sliderColor),
+                                  ),
+                                ),
+                              ],
+                            )),
                         // IconChat(),
                         const SizedBox(height: 16),
                         CarouselSlider(

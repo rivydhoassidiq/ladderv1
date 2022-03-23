@@ -29,6 +29,8 @@ TextStyle boldText12 = GoogleFonts.openSans(fontSize: 12, fontWeight: bold);
 TextStyle boldText8 = GoogleFonts.openSans(fontSize: 8, fontWeight: bold);
 
 // SEMIBOLD TEXT
+TextStyle semiBoldText36 =
+    GoogleFonts.openSans(fontSize: 36, fontWeight: semiBold);
 TextStyle semiBoldText16 =
     GoogleFonts.openSans(fontSize: 16, fontWeight: semiBold);
 TextStyle semiBoldText14 =

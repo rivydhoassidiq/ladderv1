@@ -28,7 +28,7 @@ class SearchField extends StatelessWidget {
             right: 16,
           ),
           // color: Colors.red,
-          width: MediaQuery.of(context).size.width / 1.20,
+          width: MediaQuery.of(context).size.width / 1.15,
           // width: double.infinity,
           height: heightC - sizeHeight / 1.15,
           child: TextField(
@@ -48,54 +48,56 @@ class SearchField extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          // alignment: Alignment.center,
-          // color: Colors.amber,
-          padding: EdgeInsets.only(top: 15),
-          height: heightC - sizeHeight / 1.15,
-          child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(authC.user.value.email)
-                  .collection("chats")
-                  .snapshots(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return GestureDetector(
-                    onTap: () => Get.toNamed(Routes.CHAT),
-                    child: Image.asset(
-                      'assets/icons/chat.png',
-                      // height: 24,
-                      width: Get.width / 14,
-                    ),
-                  );
-                }
-                // var allChats = snapshot.data!.docs;
-                List<int> chats = [];
-                snapshot.data.docs.forEach((element) {
-                  final map2 = element.data();
-                  chats.add(map2['total_unread']);
-                });
-                int chat1 = (chats.sum);
+        Center(
+          child: Container(
+            // alignment: Alignment.center,
+            // color: Colors.amber,
+            padding: EdgeInsets.only(top: 15),
+            height: heightC - sizeHeight / 1.15,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(authC.user.value.email)
+                    .collection("chats")
+                    .snapshots(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return GestureDetector(
+                      onTap: () => Get.toNamed(Routes.CHAT),
+                      child: Image.asset(
+                        'assets/icons/chat.png',
+                        // height: 24,
+                        width: Get.width / 14,
+                      ),
+                    );
+                  }
+                  // var allChats = snapshot.data!.docs;
+                  List<int> chats = [];
+                  snapshot.data.docs.forEach((element) {
+                    final map2 = element.data();
+                    chats.add(map2['total_unread']);
+                  });
+                  int chat1 = (chats.sum);
 
-                return chat1 != 0
-                    ? GestureDetector(
-                        onTap: () => Get.toNamed(Routes.CHAT),
-                        child: Image.asset(
-                          'assets/icons/chat_masuk.png',
-                          // height: 24,
-                          width: Get.width / 14,
-                        ),
-                      )
-                    : GestureDetector(
-                        onTap: () => Get.toNamed(Routes.CHAT),
-                        child: Image.asset(
-                          'assets/icons/chat.png',
-                          // height: 24,
-                          width: Get.width / 14,
-                        ),
-                      );
-              }),
+                  return chat1 != 0
+                      ? GestureDetector(
+                          onTap: () => Get.toNamed(Routes.CHAT),
+                          child: Image.asset(
+                            'assets/icons/chat_masuk.png',
+                            // height: 24,
+                            width: Get.width / 14,
+                          ),
+                        )
+                      : GestureDetector(
+                          onTap: () => Get.toNamed(Routes.CHAT),
+                          child: Image.asset(
+                            'assets/icons/chat.png',
+                            // height: 24,
+                            width: Get.width / 14,
+                          ),
+                        );
+                }),
+          ),
         )
       ],
     );

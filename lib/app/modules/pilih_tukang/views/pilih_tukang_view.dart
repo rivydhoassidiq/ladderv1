@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/src/iterable_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,8 @@ import 'package:ladder/app/utils/theme.dart';
 import '../controllers/pilih_tukang_controller.dart';
 
 class PilihTukangView extends StatefulWidget {
-  const PilihTukangView({Key? key}) : super(key: key);
+  const PilihTukangView({Key? key, this.id}) : super(key: key);
+  final id;
 
   @override
   _PilihTukangViewState createState() => _PilihTukangViewState();
@@ -24,6 +26,8 @@ class _PilihTukangViewState extends State<PilihTukangView> {
   PilihTukangController controller = Get.put(PilihTukangController());
   bool isLoading = true;
   final user = FirebaseAuth.instance.currentUser;
+
+  late double angka = 0.01;
 
   // @override
   // void initState() {
@@ -134,6 +138,7 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                           ),
                           SizedBox(width: 16),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -143,38 +148,29 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                                 style:
                                     semiBoldText14.copyWith(color: blackColor),
                               ),
-                              // StreamBuilder(
-                              //   stream: FirebaseFirestore.instance
-                              //       .collection('users')
-                              //       .doc()
-                              //       .collection('rating')
-                              //       .snapshots(),
-                              //   builder: (BuildContext context,
-                              //       AsyncSnapshot snapshot) {
-                              //     if (snapshot.connectionState ==
-                              //         ConnectionState.waiting) {
-                              //       return Center(
-                              //           child:
-                              //               CircularProgressIndicator());
-                              //     }
-                              //     List<double> ratings = [];
-                              //     snapshot.data.docs.forEach((element) {
-                              //       final map2 = element.data();
-                              //       ratings.add(map2['rating']);
-                              //     });
-                              //     double rating1 = (ratings.sum) /
-                              //         snapshot.data.docs.length;
-                              //     return Row(
-                              //       children: [
-                              //         Icon(Icons.star_rate_rounded,
-                              //             color: Color(0xFFFFC107)),
-                              //         Text("$rating1")
-                              //       ],
-                              //     );
-                              //   },
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment.start,
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Icon(
+                              //       Icons.star_rate_rounded,
+                              //       size: 15,
+                              //       color: Color(0xFFFFC107),
+                              //     ),
+                              //     SizedBox(width: 4),
+                              //     listAllDocs[index].data()!.rating == angka
+                              //         // listAllDocs.join('rating').isEmpty
+                              //         ? Text('Belum ada penilaian',
+                              //             style: regularText12.copyWith(
+                              //                 color: sliderColor))
+                              //         : Text(
+                              //             '${listAllDocs[index].data()!.rating}',
+                              //             style: regularText12.copyWith(
+                              //               color: Colors.grey.shade600,
+                              //             ),
+                              //           ),
+                              //   ],
                               // ),
-                              // Icon(Icons.star_rate_rounded,
-                              //     color: Color(0xFFFFC107))
                             ],
                           ),
                         ],

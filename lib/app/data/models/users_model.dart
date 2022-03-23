@@ -16,6 +16,7 @@ class UsersModel {
     this.lastSignInTime,
     this.photoUrl,
     this.keahlian,
+    this.rating,
     this.umur,
     this.role,
     this.updatedTime,
@@ -30,6 +31,7 @@ class UsersModel {
   String? photoUrl;
   List? keahlian;
   String? umur;
+  double? rating;
   // List<String>? keahlian;
   String? role;
   String? creationTime;
@@ -46,6 +48,7 @@ class UsersModel {
         photoUrl: json["photoUrl"],
         keahlian: json["keahlian"],
         umur: json["umur"],
+        rating: json["rating"],
         // keahlian: List<String>.from(json["keahlian"].map((x) => x)),
         role: json["role"],
         creationTime: (json["creationTime"]),
@@ -64,6 +67,7 @@ class UsersModel {
         // "keahlian": keahlian,
         "keahlian": List<dynamic>.from(keahlian!.map((x) => x)),
         "umur": umur,
+        "rating": rating,
         "role": role,
         "photoUrl": photoUrl,
         "creationTime": creationTime,

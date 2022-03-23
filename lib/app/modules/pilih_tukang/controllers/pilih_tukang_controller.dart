@@ -28,19 +28,19 @@ class PilihTukangController extends GetxController {
     return tukang.where("keahlian", arrayContains: docName).snapshots();
   }
 
-  final tukangAll = FirebaseFirestore.instance
-      .collection("tukang")
-      .withConverter<TukangModel>(
-        fromFirestore: (snapshot, options) =>
-            TukangModel.fromJson(snapshot.data()!),
-        toFirestore: (value, options) => value.toJson(),
-      );
-  Stream<QuerySnapshot<TukangModel>> streamTukang() {
-    return tukangAll.snapshots();
-  }
+  // final tukangAll = FirebaseFirestore.instance
+  //     .collection("tukang")
+  //     .withConverter<TukangModel>(
+  //       fromFirestore: (snapshot, options) =>
+  //           TukangModel.fromJson(snapshot.data()!),
+  //       toFirestore: (value, options) => value.toJson(),
+  //     );
+  // Stream<QuerySnapshot<TukangModel>> streamTukang() {
+  //   return tukangAll.snapshots();
+  // }
 
-  Stream<QuerySnapshot<Object?>> streamData() {
-    CollectionReference tukang = firestore.collection("tukang");
-    return tukang.orderBy('name').snapshots();
-  }
+  // Stream<QuerySnapshot<Object?>> streamData() {
+  //   CollectionReference tukang = firestore.collection("tukang");
+  //   return tukang.orderBy('name').snapshots();
+  // }
 }

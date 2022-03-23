@@ -44,25 +44,31 @@ class ChatRoomView extends GetView<ChatRoomController> {
                     stream: controller.streamFriendData(
                         (Get.arguments as Map<String, dynamic>)["friendEmail"]),
                     builder: (context, snapFriendUser) {
-                      if (snapFriendUser.connectionState ==
-                          ConnectionState.active) {
-                        var dataFriend =
-                            snapFriendUser.data!.data() as Map<String, dynamic>;
+                      // if (snapFriendUser.connectionState ==
+                      //     ConnectionState.active) {
+                      var dataFriend =
+                          snapFriendUser.data!.data() as Map<String, dynamic>;
 
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                            dataFriend["photoUrl"],
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      }
-                      return ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.asset(
-                            'assets/images/noimage.png',
-                          ));
-                    }),
+                      return CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          dataFriend["photoUrl"],
+                        ),
+                      );
+                      // ClipRRect(
+                      // borderRadius: BorderRadius.circular(50),
+                      // child: Image.network(
+                      // dataFriend["photoUrl"],
+                      // fit: BoxFit.cover,
+                      // ),
+                      // );
+                    }
+                    //   return ClipRRect(
+                    //       borderRadius: BorderRadius.circular(50),
+                    //       child: Image.asset(
+                    //         'assets/images/noimage.png',
+                    //       ));
+                    // }
+                    ),
               ),
             ],
           ),
@@ -71,19 +77,20 @@ class ChatRoomView extends GetView<ChatRoomController> {
             stream: controller.streamFriendData(
                 (Get.arguments as Map<String, dynamic>)["friendEmail"]),
             builder: (context, snapFriendUser) {
-              if (snapFriendUser.connectionState == ConnectionState.active) {
-                var dataFriend =
-                    snapFriendUser.data!.data() as Map<String, dynamic>;
-                return Text(
-                  dataFriend["name"],
-                  style: boldText16.copyWith(color: blackColor),
-                );
-              }
+              // if (snapFriendUser.connectionState == ConnectionState.active) {
+              var dataFriend =
+                  snapFriendUser.data!.data() as Map<String, dynamic>;
               return Text(
-                'Loading ...',
+                dataFriend["name"],
                 style: boldText16.copyWith(color: blackColor),
               );
-            }),
+            }
+            //   return Text(
+            //     'Loading ...',
+            //     style: boldText16.copyWith(color: blackColor),
+            //   );
+            // }
+            ),
       ),
       body: WillPopScope(
         onWillPop: () async {
@@ -97,9 +104,9 @@ class ChatRoomView extends GetView<ChatRoomController> {
                 width: Get.width,
                 // color: Colors.green,
                 child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: controller.streamChats(chat_id),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.active) {
+                    stream: controller.streamChats(chat_id),
+                    builder: (context, snapshot) {
+                      // if (snapshot.connectionState == ConnectionState.active) {
                       var allData = snapshot.data!.docs;
                       Timer(
                         Duration.zero,
@@ -154,11 +161,11 @@ class ChatRoomView extends GetView<ChatRoomController> {
                         },
                       );
                     }
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                ),
+                    //   return Center(
+                    //     child: CircularProgressIndicator(),
+                    //   );
+                    // },
+                    ),
               ),
             ),
             Container(
