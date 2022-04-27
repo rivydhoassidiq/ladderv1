@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
 
 import 'package:ladder/app/data/models/users_model.dart';
+import 'package:ladder/app/modules/detail_tukang/component/rating.dart';
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/loading_screen.dart';
 
@@ -37,7 +38,9 @@ class _DetailTukangViewState extends State<DetailTukangView> {
         backgroundColor: whiteColor,
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Get.back(),
+          onPressed: () {
+            Get.back();
+          },
           icon: Icon(
             Icons.arrow_back,
             color: blackColor,
@@ -63,32 +66,32 @@ class _DetailTukangViewState extends State<DetailTukangView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Flexible(
-                  //   flex: 1,
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(4),
-                  //         color: whiteColor,
-                  //         border: Border.all(
-                  //           color: pinkColor,
-                  //         )),
-                  //     child: Material(
-                  //       color: Colors.transparent,
-                  //       child: InkWell(
-                  //         borderRadius: BorderRadius.circular(4),
-                  //         onTap: () => Get.toNamed(Routes.GIFT_RATINIG,
-                  //             arguments: listAllDocs.email),
-                  //         child: Center(
-                  //           child: Text(
-                  //             'Beri ulasan',
-                  //             style: semiBoldText14.copyWith(color: pinkColor),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // SizedBox(width: 8),
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: whiteColor,
+                          border: Border.all(
+                            color: pinkColor,
+                          )),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(4),
+                          onTap: () => Get.toNamed(Routes.GIFT_RATINIG,
+                              arguments: listAllDocs.email),
+                          child: Center(
+                            child: Text(
+                              'Beri ulasan',
+                              style: semiBoldText14.copyWith(color: pinkColor),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 8),
                   Flexible(
                     flex: 1,
                     child: Container(
@@ -187,71 +190,71 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                       style: regularText12,
                                     ),
                                     SizedBox(height: 4),
-                                    // StreamBuilder(
-                                    //   stream: FirebaseFirestore.instance
-                                    //       .collection('users')
-                                    //       .doc(Get.arguments)
-                                    //       .collection('rating')
-                                    //       .snapshots(),
-                                    //   builder: (BuildContext context,
-                                    //       AsyncSnapshot snapshot) {
-                                    //     if (snapshot.connectionState ==
-                                    //         ConnectionState.waiting) {
-                                    //       return Center(
-                                    //           child: CircularProgressIndicator(
-                                    //         strokeWidth: 2,
-                                    //         color: whiteColor,
-                                    //       ));
-                                    //     }
-                                    //     List<double> ratings = [];
+                                    StreamBuilder(
+                                      stream: FirebaseFirestore.instance
+                                          .collection('users')
+                                          .doc(Get.arguments)
+                                          .collection('rating')
+                                          .snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Center(
+                                              child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                            color: whiteColor,
+                                          ));
+                                        }
+                                        List<double> ratings = [];
 
-                                    //     snapshot.data.docs.forEach((element) {
-                                    //       final map2 = element.data();
-                                    //       ratings.add(map2['rating']);
-                                    //     });
-                                    //     double rating1 = (ratings.sum) /
-                                    //         snapshot.data.docs.length;
-                                    //     return snapshot.data.docs.length == 0
-                                    //         ? Row(
-                                    //             mainAxisAlignment:
-                                    //                 MainAxisAlignment.start,
-                                    //             crossAxisAlignment:
-                                    //                 CrossAxisAlignment.start,
-                                    //             children: [
-                                    //               Icon(Icons.star_rate_rounded,
-                                    //                   size: 15,
-                                    //                   color: Color(0xFFFFC107)),
-                                    //               Text(
-                                    //                 'Belum ada penilaian',
-                                    //                 style:
-                                    //                     regularText12.copyWith(
-                                    //                   color: sliderColor,
-                                    //                 ),
-                                    //               )
-                                    //             ],
-                                    //           )
-                                    //         : Row(
-                                    //             mainAxisAlignment:
-                                    //                 MainAxisAlignment.start,
-                                    //             crossAxisAlignment:
-                                    //                 CrossAxisAlignment.start,
-                                    //             children: [
-                                    //               Icon(Icons.star_rate_rounded,
-                                    //                   size: 15,
-                                    //                   color: Color(0xFFFFC107)),
-                                    //               Text(
-                                    //                 double.parse("$rating1")
-                                    //                     .toStringAsFixed(1),
-                                    //                 style:
-                                    //                     regularText12.copyWith(
-                                    //                   color:
-                                    //                       Colors.grey.shade600,
-                                    //                 ),
-                                    //               )
-                                    //             ],
-                                    //           );
-                                    //   },
-                                    // ),
+                                        snapshot.data.docs.forEach((element) {
+                                          final map2 = element.data();
+                                          ratings.add(map2['rating']);
+                                        });
+                                        double rating1 = (ratings.sum) /
+                                            snapshot.data.docs.length;
+                                        return snapshot.data.docs.length == 0
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(Icons.star_rate_rounded,
+                                                      size: 15,
+                                                      color: Color(0xFFFFC107)),
+                                                  Text(
+                                                    'Belum ada penilaian',
+                                                    style:
+                                                        regularText12.copyWith(
+                                                      color: sliderColor,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            : Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(Icons.star_rate_rounded,
+                                                      size: 15,
+                                                      color: Color(0xFFFFC107)),
+                                                  Text(
+                                                    double.parse("$rating1")
+                                                        .toStringAsFixed(1),
+                                                    style:
+                                                        regularText12.copyWith(
+                                                      color:
+                                                          Colors.grey.shade600,
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                      },
+                                    ),
                                   ],
                                 ),
                               ],
@@ -321,195 +324,204 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                   ),
                                 ),
                                 SizedBox(height: 4),
-                                // Row(
-                                //   mainAxisAlignment:
-                                //       MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Text('Ulasan Pengguna', style: boldText14),
-                                //     TextButton(
-                                //       onPressed: () => Get.toNamed(
-                                //           Routes.DETAIL_RATING,
-                                //           arguments: listAllDocs.email),
-                                //       child: Text('Lihat Semua',
-                                //           style: semiBoldText14.copyWith(
-                                //               color: blueColorColor)),
-                                //     ),
-                                //   ],
-                                // ),
-                                // SizedBox(height: 4),
-                                // SizedBox(
-                                //   height: 400,
-                                //   child: StreamBuilder(
-                                //     stream: FirebaseFirestore.instance
-                                //         .collection('users')
-                                //         .doc(Get.arguments)
-                                //         .collection('rating')
-                                //         .orderBy("time", descending: true)
-                                //         .snapshots(),
-                                //     builder: (BuildContext context,
-                                //         AsyncSnapshot snapshot) {
-                                //       if (snapshot.connectionState ==
-                                //           ConnectionState.waiting) {
-                                //         return Center(
-                                //           child: LoadingScreen(),
-                                //         );
-                                //       }
-                                //       var listAll = snapshot.data!.docs;
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('Ulasan Pengguna', style: boldText14),
+                                    TextButton(
+                                      onPressed: () => Get.toNamed(
+                                          Routes.DETAIL_RATING,
+                                          arguments: listAllDocs.email),
+                                      child: Text('Lihat Semua',
+                                          style: semiBoldText14.copyWith(
+                                              color: blueColorColor)),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 4),
+                                SizedBox(
+                                  height: 400,
+                                  child: StreamBuilder(
+                                    stream: FirebaseFirestore.instance
+                                        .collection('users')
+                                        .doc(Get.arguments)
+                                        .collection('rating')
+                                        .orderBy("time", descending: true)
+                                        .snapshots(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Center(
+                                          child: LoadingScreen(),
+                                        );
+                                      }
+                                      var listAll = snapshot.data!.docs;
 
-                                //       List<String> komen = [];
+                                      List<String> komen = [];
 
-                                //       snapshot.data.docs.forEach((element) {
-                                //         final map3 = element.data();
-                                //         komen.add(map3['komen']);
-                                //       });
+                                      snapshot.data.docs.forEach((element) {
+                                        final map3 = element.data();
+                                        komen.add(map3['komen']);
+                                      });
 
-                                //       return listAll.length == 0
-                                //           ? Center(
-                                //               child: Column(
-                                //                 // mainAxisAlignment:
-                                //                 //     MainAxisAlignment.center,
-                                //                 // crossAxisAlignment:
-                                //                 //     CrossAxisAlignment.center,
-                                //                 children: [
-                                //                   Container(
-                                //                     padding:
-                                //                         EdgeInsets.only(top: 8),
-                                //                     child: const Image(
-                                //                       image: AssetImage(
-                                //                           'assets/images/kosong.png'),
-                                //                       width: 230,
-                                //                       height: 230,
-                                //                     ),
-                                //                   ),
-                                //                   const SizedBox(height: 16),
-                                //                   Text('Belum Ada Ulasan',
-                                //                       style: semiBoldText14
-                                //                           .copyWith(
-                                //                               color:
-                                //                                   blackColor)),
-                                //                 ],
-                                //               ),
-                                //             )
-                                //           : ListView.builder(
-                                //               itemCount: 2,
-                                //               itemBuilder: (context, index) {
-                                //                 return Column(
-                                //                   children: [
-                                //                     Container(
-                                //                       padding: const EdgeInsets
-                                //                               .symmetric(
-                                //                           horizontal: 16,
-                                //                           vertical: 16),
-                                //                       width: double.infinity,
-                                //                       decoration: BoxDecoration(
-                                //                           color: Colors.white,
-                                //                           borderRadius:
-                                //                               BorderRadius
-                                //                                   .circular(8),
-                                //                           boxShadow: [
-                                //                             BoxShadow(
-                                //                               color:
-                                //                                   sliderColor,
-                                //                               spreadRadius: 0,
-                                //                               blurRadius: 1,
-                                //                               offset:
-                                //                                   Offset(1, 2),
-                                //                             ),
-                                //                           ]),
-                                //                       child: Column(
-                                //                         mainAxisAlignment:
-                                //                             MainAxisAlignment
-                                //                                 .start,
-                                //                         crossAxisAlignment:
-                                //                             CrossAxisAlignment
-                                //                                 .start,
-                                //                         children: [
-                                //                           Row(
-                                //                             children: [
-                                //                               Container(
-                                //                                 width:
-                                //                                     Get.width *
-                                //                                         0.10,
-                                //                                 height:
-                                //                                     Get.width *
-                                //                                         0.10,
-                                //                                 child:
-                                //                                     CircleAvatar(
-                                //                                   backgroundColor:
-                                //                                       whiteColor,
-                                //                                   backgroundImage:
-                                //                                       NetworkImage(
-                                //                                           listAll[index]
-                                //                                               [
-                                //                                               "photoUrl"]),
-                                //                                 ),
-                                //                               ),
-                                //                               SizedBox(
-                                //                                   width: 12),
-                                //                               Column(
-                                //                                 mainAxisAlignment:
-                                //                                     MainAxisAlignment
-                                //                                         .start,
-                                //                                 crossAxisAlignment:
-                                //                                     CrossAxisAlignment
-                                //                                         .start,
-                                //                                 children: [
-                                //                                   Text(
-                                //                                     listAll[index]
-                                //                                         [
-                                //                                         "name"],
-                                //                                     style:
-                                //                                         semiBoldText14,
-                                //                                   ),
-                                //                                   SizedBox(
-                                //                                       height:
-                                //                                           4),
-                                //                                   RatingBarIndicator(
-                                //                                     unratedColor:
-                                //                                         sliderColor,
-                                //                                     itemSize:
-                                //                                         12,
-                                //                                     itemPadding:
-                                //                                         EdgeInsets.only(
-                                //                                             right:
-                                //                                                 4),
-                                //                                     rating: listAll[
-                                //                                             index]
-                                //                                         [
-                                //                                         "rating"],
-                                //                                     itemBuilder:
-                                //                                         (context,
-                                //                                                 _) =>
-                                //                                             Icon(
-                                //                                       Icons
-                                //                                           .star,
-                                //                                       color: Color(
-                                //                                           0xFFFFC107),
-                                //                                     ),
-                                //                                   )
-                                //                                 ],
-                                //                               ),
-                                //                             ],
-                                //                           ),
-                                //                           SizedBox(height: 8),
-                                //                           Text(
-                                //                               listAll[index]
-                                //                                   ["komen"],
-                                //                               style: regularText12
-                                //                                   .copyWith(
-                                //                                       color:
-                                //                                           blackColor)),
-                                //                         ],
-                                //                       ),
-                                //                     ),
-                                //                     SizedBox(height: 16)
-                                //                   ],
-                                //                 );
-                                //               },
-                                //             );
-                                //     },
-                                //   ),
-                                // ),
+                                      return listAll.length == 0
+                                          ? Center(
+                                              child: Column(
+                                                // mainAxisAlignment:
+                                                //     MainAxisAlignment.center,
+                                                // crossAxisAlignment:
+                                                //     CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    padding:
+                                                        EdgeInsets.only(top: 8),
+                                                    child: const Image(
+                                                      image: AssetImage(
+                                                          'assets/images/kosong.png'),
+                                                      width: 230,
+                                                      height: 230,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 16),
+                                                  Text('Belum Ada Ulasan',
+                                                      style: semiBoldText14
+                                                          .copyWith(
+                                                              color:
+                                                                  blackColor)),
+                                                ],
+                                              ),
+                                            )
+                                          : SingleChildScrollView(
+                                              child: Column(
+                                              children: controller.ratingCard
+                                                  .map(
+                                                    (rating) =>
+                                                        Rating(rating: rating),
+                                                  )
+                                                  .toList(),
+                                            ));
+                                      // ListView.builder(
+                                      //     itemCount: 2,
+                                      //     itemBuilder: (context, index) {
+                                      //       return Column(
+                                      //         children: [
+                                      //           Container(
+                                      //             padding: const EdgeInsets
+                                      //                     .symmetric(
+                                      //                 horizontal: 16,
+                                      //                 vertical: 16),
+                                      //             width: double.infinity,
+                                      //             decoration: BoxDecoration(
+                                      //                 color: Colors.white,
+                                      //                 borderRadius:
+                                      //                     BorderRadius
+                                      //                         .circular(8),
+                                      //                 boxShadow: [
+                                      //                   BoxShadow(
+                                      //                     color:
+                                      //                         sliderColor,
+                                      //                     spreadRadius: 0,
+                                      //                     blurRadius: 1,
+                                      //                     offset:
+                                      //                         Offset(1, 2),
+                                      //                   ),
+                                      //                 ]),
+                                      //             child: Column(
+                                      //               mainAxisAlignment:
+                                      //                   MainAxisAlignment
+                                      //                       .start,
+                                      //               crossAxisAlignment:
+                                      //                   CrossAxisAlignment
+                                      //                       .start,
+                                      //               children: [
+                                      //                 Row(
+                                      //                   children: [
+                                      //                     Container(
+                                      //                       width:
+                                      //                           Get.width *
+                                      //                               0.10,
+                                      //                       height:
+                                      //                           Get.width *
+                                      //                               0.10,
+                                      //                       child:
+                                      //                           CircleAvatar(
+                                      //                         backgroundColor:
+                                      //                             whiteColor,
+                                      //                         backgroundImage:
+                                      //                             NetworkImage(
+                                      //                                 listAll[index]
+                                      //                                     [
+                                      //                                     "photoUrl"]),
+                                      //                       ),
+                                      //                     ),
+                                      //                     SizedBox(
+                                      //                         width: 12),
+                                      //                     Column(
+                                      //                       mainAxisAlignment:
+                                      //                           MainAxisAlignment
+                                      //                               .start,
+                                      //                       crossAxisAlignment:
+                                      //                           CrossAxisAlignment
+                                      //                               .start,
+                                      //                       children: [
+                                      //                         Text(
+                                      //                           listAll[index]
+                                      //                               [
+                                      //                               "name"],
+                                      //                           style:
+                                      //                               semiBoldText14,
+                                      //                         ),
+                                      //                         SizedBox(
+                                      //                             height:
+                                      //                                 4),
+                                      //                         RatingBarIndicator(
+                                      //                           unratedColor:
+                                      //                               sliderColor,
+                                      //                           itemSize:
+                                      //                               12,
+                                      //                           itemPadding:
+                                      //                               EdgeInsets.only(
+                                      //                                   right:
+                                      //                                       4),
+                                      //                           rating: listAll[
+                                      //                                   index]
+                                      //                               [
+                                      //                               "rating"],
+                                      //                           itemBuilder:
+                                      //                               (context,
+                                      //                                       _) =>
+                                      //                                   Icon(
+                                      //                             Icons
+                                      //                                 .star,
+                                      //                             color: Color(
+                                      //                                 0xFFFFC107),
+                                      //                           ),
+                                      //                         )
+                                      //                       ],
+                                      //                     ),
+                                      //                   ],
+                                      //                 ),
+                                      //                 SizedBox(height: 8),
+                                      //                 Text(
+                                      //                     listAll[index]
+                                      //                         ["komen"],
+                                      //                     style: regularText12
+                                      //                         .copyWith(
+                                      //                             color:
+                                      //                                 blackColor)),
+                                      //               ],
+                                      //             ),
+                                      //           ),
+                                      //           SizedBox(height: 16)
+                                      //         ],
+                                      //       );
+                                      //     },
+                                      //   );
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -525,5 +537,47 @@ class _DetailTukangViewState extends State<DetailTukangView> {
         },
       ),
     );
+  }
+
+  void _submit2() async {
+    final userr = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(Get.arguments)
+        .collection('rating')
+        .get();
+
+    List<double> ratings = [];
+
+    userr.docs.forEach((element) {
+      final map2 = element.data();
+      ratings.add(map2['rating']);
+    });
+    double ratings1 = (ratings.sum) / userr.docs.length;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(Get.arguments)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        print('Document data: ${documentSnapshot.data()}');
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(Get.arguments)
+            .update({
+          'rating': ratings1,
+        });
+        try {
+          dynamic nested = documentSnapshot.get(FieldPath(['uid']));
+        } on StateError catch (e) {
+          print(e);
+        }
+      }
+      // else {
+      //   FirebaseFirestore.instance.collection('users').doc(Get.arguments).set({
+      //     'rating': ratings1,
+      //   });
+      // }
+    });
   }
 }

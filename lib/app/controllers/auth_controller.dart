@@ -50,7 +50,7 @@ class AuthController extends GetxController {
   }
 
   Future<bool> autoLogin() async {
-    //KITA AKAN MENGUBAH isAuth MENJADI TRUE
+    // todo : KITA AKAN MENGUBAH isAuth MENJADI TRUE
     try {
       final isSignIn = await _googleSignIn.isSignedIn();
       if (isSignIn) {
@@ -257,11 +257,30 @@ class AuthController extends GetxController {
     Get.defaultDialog(
       title: 'Informasi',
       middleText: "Perubahan Berhasil",
-      onConfirm: () {
-        Text('Ok bang');
-        Get.back();
-        Get.back();
-      },
+      confirm: Container(
+        width: 89,
+        height: 33,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: blueColorColor,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(4),
+            onTap: () {
+              Get.back();
+              Get.back();
+            },
+            child: Center(
+              child:
+                  Text('Ok', style: semiBoldText14.copyWith(color: whiteColor)),
+            ),
+          ),
+        ),
+      ),
+      middleTextStyle: regularText14,
+      titleStyle: semiBoldText16,
     );
 
     user.refresh();

@@ -14,8 +14,7 @@ import 'package:ladder/app/utils/theme.dart';
 import '../controllers/pilih_tukang_controller.dart';
 
 class PilihTukangView extends StatefulWidget {
-  const PilihTukangView({Key? key, this.id}) : super(key: key);
-  final id;
+  const PilihTukangView({Key? key}) : super(key: key);
 
   @override
   _PilihTukangViewState createState() => _PilihTukangViewState();
@@ -111,7 +110,7 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                   itemCount: listAllDocs.length,
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () => Get.toNamed(Routes.DETAIL_TUKANG,
-                        arguments: listAllDocs[index].id),
+                        arguments: listAllDocs[index].data()!.email),
                     child: Container(
                       margin: EdgeInsets.only(top: 16, left: 16, right: 16),
                       padding:
@@ -148,29 +147,69 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                                 style:
                                     semiBoldText14.copyWith(color: blackColor),
                               ),
-                              // Row(
-                              //   mainAxisAlignment: MainAxisAlignment.start,
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   children: [
-                              //     Icon(
-                              //       Icons.star_rate_rounded,
-                              //       size: 15,
-                              //       color: Color(0xFFFFC107),
-                              //     ),
-                              //     SizedBox(width: 4),
-                              //     listAllDocs[index].data()!.rating == angka
-                              //         // listAllDocs.join('rating').isEmpty
-                              //         ? Text('Belum ada penilaian',
-                              //             style: regularText12.copyWith(
-                              //                 color: sliderColor))
-                              //         : Text(
-                              //             '${listAllDocs[index].data()!.rating}',
-                              //             style: regularText12.copyWith(
-                              //               color: Colors.grey.shade600,
-                              //             ),
-                              //           ),
-                              //   ],
-                              // ),
+                              StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(listAllDocs[index].data()!.email)
+                                      .collection('rating')
+                                      .snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Center(
+                                          child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: whiteColor,
+                                      ));
+                                    }
+                                    var listAll = snapshot.data!.docs;
+
+                                    List<double> ratings = [];
+
+                                    snapshot.data.docs.forEach((element) {
+                                      final map2 = element.data();
+                                      ratings.add(map2['rating']);
+                                    });
+                                    double rating1 = (ratings.sum) /
+                                        snapshot.data.docs.length;
+
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.star_rate_rounded,
+                                          size: 15,
+                                          color: Color(0xFFFFC107),
+                                        ),
+                                        SizedBox(width: 4),
+                                        // listAllDocs[index].data()!.rating ==
+                                        //         angka
+                                        //     // listAllDocs.join('rating').isEmpty
+                                        //     ?
+                                        //     Text('Belum ada penilaian',
+                                        //         style: regularText12.copyWith(
+                                        //             color: sliderColor))
+                                        // :
+                                        Text(
+                                          double.parse("$rating1")
+                                              .toStringAsFixed(1),
+                                          style: regularText12.copyWith(
+                                            color: Colors.grey.shade600,
+                                          ),
+                                        )
+                                        //  Text(
+                                        //     '${listAllDocs[index].data()!.rating}',
+                                        //     style: regularText12.copyWith(
+                                        //       color: Colors.grey.shade600,
+                                        //     ),
+                                        //   ),
+                                      ],
+                                    );
+                                  }),
                             ],
                           ),
                         ],

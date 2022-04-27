@@ -19,7 +19,7 @@ class GiftRatinigView extends StatefulWidget {
 }
 
 class _GiftRatinigViewState extends State<GiftRatinigView> {
-  final user = FirebaseAuth.instance.currentUser;
+  // final user = FirebaseAuth.instance.currentUser;
   final komenC = TextEditingController();
 
   final authC = Get.find<AuthController>();
@@ -31,7 +31,8 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
   }
 
   void _submit() async {
-    // final user = await FirebaseAuth.instance.currentUser;
+    final user = await FirebaseAuth.instance.currentUser;
+
     FirebaseFirestore.instance
         .collection('users')
         .doc(Get.arguments)
@@ -45,11 +46,11 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
             .collection('users')
             .doc(Get.arguments)
             .collection('rating')
-            .doc(user!.email)
+            .doc(user.email)
             .update({
           'rating': _rating,
-          'name': user!.displayName,
-          'photoUrl': user!.photoURL,
+          'name': user.displayName,
+          'photoUrl': user.photoURL,
           'komen': komenC.text,
           'time': DateTime.now().toIso8601String(),
         });
@@ -63,57 +64,16 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
             .collection('users')
             .doc(Get.arguments)
             .collection('rating')
-            .doc(user!.email)
+            .doc(user.email)
             .set({
           'rating': _rating,
-          'email': user!.email,
-          'name': user!.displayName,
-          'photoUrl': user!.photoURL,
+          'email': user.email,
+          'name': user.displayName,
+          'photoUrl': user.photoURL,
           "komen": komenC.text,
           'time': DateTime.now().toIso8601String(),
         });
       }
-    });
-  }
-
-  void _submit2() async {
-    final userr = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(Get.arguments)
-        .collection('rating')
-        .get();
-    List<double> ratings = [];
-
-    userr.docs.forEach((element) {
-      final map2 = element.data();
-      ratings.add(map2['rating']);
-    });
-    double ratings1 = (ratings.sum) / userr.docs.length;
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(Get.arguments)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        print('Document data: ${documentSnapshot.data()}');
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(Get.arguments)
-            .update({
-          'rating': ratings1,
-        });
-        try {
-          dynamic nested = documentSnapshot.get(FieldPath(['uid']));
-        } on StateError catch (e) {
-          print(e);
-        }
-      }
-      // else {
-      //   FirebaseFirestore.instance.collection('users').doc(Get.arguments).set({
-      //     'rating': ratings1,
-      //   });
-      // }
     });
   }
 
@@ -234,7 +194,7 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
                       color: Colors.transparent,
                       child: InkWell(
                         borderRadius: BorderRadius.circular(4),
-                        onTap: () {
+                        onTap: () async {
                           Get.defaultDialog(
                               title: "",
                               middleText:
@@ -246,16 +206,21 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
                                   children: [
                                     // Text('Terima Kasih Telah Memberikan Review'),
                                     RaisedButton(
+                                      color: blueColorColor,
                                       onPressed: () {
                                         _submit();
+                                        print('berhasil');
                                         Get.back();
                                         Get.back();
-                                        _submit2();
                                       },
-                                      child: Text('Ok'),
+                                      child: Text(
+                                        'Ok',
+                                        style: semiBoldText14.copyWith(
+                                            color: whiteColor),
+                                      ),
                                     ),
                                   ],
-                                ),
+                                )
                               ]);
                         },
                         child: Center(
@@ -274,29 +239,5 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
         ),
       ),
     );
-  }
-
-  void _done() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            actions: [
-              Column(
-                children: [
-                  Text('Terima Kasih Telah Memberikan Review'),
-                  RaisedButton(
-                    onPressed: () {
-                      Get.back();
-                      _submit2();
-                      Get.back();
-                    },
-                    child: Text('Ok'),
-                  ),
-                ],
-              ),
-            ],
-          );
-        });
   }
 }

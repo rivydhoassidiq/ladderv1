@@ -25,7 +25,10 @@ class PilihTukangController extends GetxController {
   // }
 
   Stream<QuerySnapshot<UsersModel>> streamTukangg(String docName) {
-    return tukang.where("keahlian", arrayContains: docName).snapshots();
+    return tukang
+        .where("keahlian", arrayContains: docName)
+        .orderBy('name')
+        .snapshots();
   }
 
   // final tukangAll = FirebaseFirestore.instance
@@ -39,8 +42,28 @@ class PilihTukangController extends GetxController {
   //   return tukangAll.snapshots();
   // }
 
-  // Stream<QuerySnapshot<Object?>> streamData() {
-  //   CollectionReference tukang = firestore.collection("tukang");
-  //   return tukang.orderBy('name').snapshots();
+  // Future<QuerySnapshot<Map<String, dynamic>>> streamData(String docName) async {
+  //   final userr = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where("keahlian", arrayContains: docName)
+  //       .orderBy('email')
+  //       .get();
+
+  //   List<String> emails = [];
+
+  //   userr.docs.forEach((element) {
+  //     emails.add(element['email']);
+  //   });
+
+  //   // int email = emails.length;
+
+  //   final emailU = firestore
+  //       .collection("users")
+  //       .doc(userr.toString())
+  //       .collection('rating')
+  //       .get();
+
+  //   print(emailU);
+  //   return emailU;
   // }
 }
