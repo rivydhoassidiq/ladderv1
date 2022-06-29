@@ -118,12 +118,13 @@ class _HomeViewState extends State<HomeView> {
                                   height: Get.width / 18,
                                 ),
                                 SizedBox(width: 10),
-                                SizedBox(
-                                  width: 300,
+                                Expanded(
+                                  // width: 300,
                                   child: AutoSizeText(
                                     'Jasa Masih Hanya Berlaku di Daerah Kota Makassar',
-                                    maxLines: 1,
+                                    maxLines: 2,
                                     minFontSize: 9,
+                                    overflow: TextOverflow.ellipsis,
                                     // minFontSize: 8,
                                     style: semiBoldText12.copyWith(
                                         color: sliderColor),

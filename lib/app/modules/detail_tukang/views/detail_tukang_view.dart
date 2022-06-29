@@ -369,10 +369,10 @@ class _DetailTukangViewState extends State<DetailTukangView> {
                                       return listAll.length == 0
                                           ? Center(
                                               child: Column(
-                                                // mainAxisAlignment:
-                                                //     MainAxisAlignment.center,
-                                                // crossAxisAlignment:
-                                                //     CrossAxisAlignment.center,
+                                                //                 // mainAxisAlignment:
+                                                //                 //     MainAxisAlignment.center,
+                                                //                 // crossAxisAlignment:
+                                                //                 //     CrossAxisAlignment.center,
                                                 children: [
                                                   Container(
                                                     padding:

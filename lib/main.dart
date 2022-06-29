@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/utils/theme.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'app/controllers/network_controller.dart';
 import 'app/routes/app_pages.dart';
@@ -24,9 +28,25 @@ void main() async {
       .then((value) => runApp(MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final authC = Get.put(AuthController(), permanent: true);
+
   final NetworkController _networkController = Get.put(NetworkController());
+
+  void configOneSignel() {
+    OneSignal.shared.setAppId('d20ec373-3ddf-48bf-b870-e69fd5dba842');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    configOneSignel();
+  }
 
   @override
   Widget build(BuildContext context) {

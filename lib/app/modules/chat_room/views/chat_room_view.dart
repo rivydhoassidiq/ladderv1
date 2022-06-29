@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,15 +9,78 @@ import 'package:intl/intl.dart';
 import 'package:ladder/app/controllers/auth_controller.dart';
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../controllers/chat_room_controller.dart';
 
-class ChatRoomView extends GetView<ChatRoomController> {
+class ChatRoomView extends StatefulWidget {
+  @override
+  State<ChatRoomView> createState() => _ChatRoomViewState();
+}
+
+class _ChatRoomViewState extends State<ChatRoomView> {
   final authC = Get.find<AuthController>();
+  ChatRoomController controller = Get.put(ChatRoomController());
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   final String chat_id = (Get.arguments as Map<String, dynamic>)["chat_id"];
+
   final String emailFriend =
       (Get.arguments as Map<String, dynamic>)["friendEmail"];
+
+  String? request;
+
+  String? tokenId;
+
+  String? name;
+
+  String? owner;
+
+  List<String> daftar = [];
+
+  getDataName() async {
+    final nameDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .get();
+    name = nameDoc['name'];
+
+    final shopDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(emailFriend)
+        .get();
+    setState(() {
+      owner = shopDoc['email'];
+    });
+    final shopDoc1 =
+        await FirebaseFirestore.instance.collection('users').doc(owner).get();
+    setState(() {
+      owner = shopDoc['email'];
+      daftar.insert(0, shopDoc1['token']);
+    });
+  }
+
+  send() async {
+    await getDataName();
+    _getToken();
+    await OneSignal.shared.postNotification(OSCreateNotification(
+      content: "Pesan Masuk",
+      additionalData: {
+        "email": name,
+      },
+      heading: "Ladder",
+      playerIds: daftar,
+    ));
+  }
+
+  _getToken() async {
+    var status = await OneSignal.shared.getDeviceState();
+    setState(() {
+      tokenId = status!.userId;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,7 +248,9 @@ class ChatRoomView extends GetView<ChatRoomController> {
                       child: TextField(
                         autocorrect: false,
                         controller: controller.chatC,
-                        onEditingComplete: () {
+                        onEditingComplete: () async {
+                          await _getToken();
+                          send();
                           controller.newChat(
                             authC.user.value.email!,
                             Get.arguments as Map<String, dynamic>,
@@ -212,7 +278,9 @@ class ChatRoomView extends GetView<ChatRoomController> {
                     color: blueColorColor,
                     child: InkWell(
                       borderRadius: BorderRadius.circular(100),
-                      onTap: () {
+                      onTap: () async {
+                        await _getToken();
+                        send();
                         controller.newChat(
                           authC.user.value.email!,
                           Get.arguments as Map<String, dynamic>,

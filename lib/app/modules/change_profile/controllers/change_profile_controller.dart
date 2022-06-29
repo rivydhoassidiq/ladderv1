@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 class ChangeProfileController extends GetxController {
   TextEditingController namaC = TextEditingController();
+  TextEditingController nama = TextEditingController();
   TextEditingController noTelpC = TextEditingController();
-  TextEditingController emailC =
-      TextEditingController();
+  TextEditingController emailC = TextEditingController();
 
   @override
   void onInit() {

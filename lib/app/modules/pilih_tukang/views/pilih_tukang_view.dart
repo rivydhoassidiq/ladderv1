@@ -186,14 +186,14 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                                           color: Color(0xFFFFC107),
                                         ),
                                         SizedBox(width: 4),
-                                        // listAllDocs[index].data()!.rating ==
-                                        //         angka
-                                        //     // listAllDocs.join('rating').isEmpty
-                                        //     ?
-                                        //     Text('Belum ada penilaian',
-                                        //         style: regularText12.copyWith(
-                                        //             color: sliderColor))
-                                        // :
+                                        //     // listAllDocs[index].data()!.rating ==
+                                        //     //         angka
+                                        //     //     // listAllDocs.join('rating').isEmpty
+                                        //     //     ?
+                                        //     //     Text('Belum ada penilaian',
+                                        //     //         style: regularText12.copyWith(
+                                        //     //             color: sliderColor))
+                                        //     // :
                                         Text(
                                           double.parse("$rating1")
                                               .toStringAsFixed(1),
@@ -201,12 +201,12 @@ class _PilihTukangViewState extends State<PilihTukangView> {
                                             color: Colors.grey.shade600,
                                           ),
                                         )
-                                        //  Text(
-                                        //     '${listAllDocs[index].data()!.rating}',
-                                        //     style: regularText12.copyWith(
-                                        //       color: Colors.grey.shade600,
-                                        //     ),
-                                        //   ),
+                                        //     //  Text(
+                                        //     //     '${listAllDocs[index].data()!.rating}',
+                                        //     //     style: regularText12.copyWith(
+                                        //     //       color: Colors.grey.shade600,
+                                        //     //     ),
+                                        //     //   ),
                                       ],
                                     );
                                   }),
