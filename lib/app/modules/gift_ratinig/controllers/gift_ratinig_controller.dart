@@ -1,20 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GiftRatinigController extends GetxController {
-  //TODO: Implement GiftRatinigController
+  TextEditingController komenC = TextEditingController();
 
-  final count = 0.obs;
   @override
   void onInit() {
-    super.onInit();
+    komenC;
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void onClose() {
+    komenC.dispose();
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

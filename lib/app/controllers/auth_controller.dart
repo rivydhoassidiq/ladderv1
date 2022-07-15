@@ -9,6 +9,7 @@ import 'package:ladder/app/data/models/users_model.dart';
 
 import 'package:ladder/app/routes/app_pages.dart';
 import 'package:ladder/app/utils/theme.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 // import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class AuthController extends GetxController {
@@ -163,13 +164,16 @@ class AuthController extends GetxController {
 
         final checkUser = await users.doc(_currentUser!.email).get();
 
+        var status = await OneSignal.shared.getDeviceState();
+        var _tokenId = status!.userId;
+
         if (checkUser.data() == null) {
           await users.doc(_currentUser!.email).set({
             "uid": userCredential!.user!.uid,
             "name": _currentUser!.displayName,
             "phoneNumber": userCredential!.user!.phoneNumber ?? "",
             "email": _currentUser!.email,
-
+            "token": _tokenId,
             // "photoUrl": _currentUser!.photoUrl ?? "noimage",
             "photoUrl": _currentUser!.photoUrl,
             "createdAt":

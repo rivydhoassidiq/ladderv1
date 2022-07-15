@@ -20,9 +20,10 @@ class GiftRatinigView extends StatefulWidget {
 
 class _GiftRatinigViewState extends State<GiftRatinigView> {
   // final user = FirebaseAuth.instance.currentUser;
-  final komenC = TextEditingController();
+  // final controller.komenC = TextEditingController();
 
   final authC = Get.find<AuthController>();
+  final controller = Get.put(GiftRatinigController());
 
   late double _rating;
 
@@ -51,7 +52,7 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
           'rating': _rating,
           'name': user.displayName,
           'photoUrl': user.photoURL,
-          'komen': komenC.text,
+          'komen': controller.komenC.text,
           'time': DateTime.now().toIso8601String(),
         });
         try {
@@ -70,7 +71,7 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
           'email': user.email,
           'name': user.displayName,
           'photoUrl': user.photoURL,
-          "komen": komenC.text,
+          "komen": controller.komenC.text,
           'time': DateTime.now().toIso8601String(),
         });
       }
@@ -139,7 +140,7 @@ class _GiftRatinigViewState extends State<GiftRatinigView> {
               ),
               SizedBox(height: 16),
               TextField(
-                controller: komenC,
+                controller: controller.komenC,
                 maxLines: null,
                 decoration: InputDecoration(
                   filled: true,
